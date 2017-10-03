@@ -10,7 +10,7 @@ public class NeuralNetwork {
         }
     }
 
-    public void TrainNetwork(){
+    public void TrainNetwork(int numTests){
 
     }
 

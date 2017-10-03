@@ -36,5 +36,9 @@ public class Faces {
                 ex.printStackTrace();
             }
         }
+
+        NeuralNetwork network = new NeuralNetwork(400, 4);
+        network.TrainNetwork(200);
     }
+
 }
