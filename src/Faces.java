@@ -8,15 +8,19 @@ public class Faces {
     //Don't info that's not an image.
     //Read 20x20 pixel file
     //Pixel has 32 grey levels.
-    //
 
     //training-file.txt
     // training-facit.txt
     // test-file.txt
     public static void main(String[] args) {
+
+        String trainingFile = args[0];
+        String trainingFacit = args[1];
+        String testFile = args[2];
+
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("C:\\temp\\testfile.txt"));
+            br = new BufferedReader(new FileReader(trainingFile));
             String line;
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
