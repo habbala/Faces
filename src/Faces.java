@@ -38,7 +38,7 @@ public class Faces {
         }
 
         NeuralNetwork network = new NeuralNetwork(200, 200,4);
-        network.TrainNetwork();
+        network.trainNetwork();
     }
 
 }
