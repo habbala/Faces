@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Faces {
     //Read 300 files.
@@ -14,17 +15,49 @@ public class Faces {
     // test-file.txt
     public static void main(String[] args) {
 
-        String trainingFile = args[0];
-        String trainingFacit = args[1];
-        String testFile = args[2];
+        //String trainingFile = args[0];
+        //String trainingFacit = args[1];
+        //String testFile = args[2];
+
+        String trainingFile = "training.txt";
+
+        /*
+         * Read faces from file.
+         */
+        LinkedList<char[][]> testFaces = new LinkedList<>();
 
         BufferedReader br = null;
+
         try {
+
             br = new BufferedReader(new FileReader(trainingFile));
+
             String line;
+
+            char[][] face = new char[20][20];
+
+            int y = 0;
+
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+
+                if(!line.isEmpty()) {
+                    if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
+
+                        for (int x = 0; x < 20; x++) {
+                            face[y][x] = line.charAt(x);
+                        }
+                    }
+                }
+
+                if(y >= 19){
+                    testFaces.add(face);
+                    System.out.println(face);
+                    y = 0;
+                } else {
+                    y++;
+                }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -37,8 +70,48 @@ public class Faces {
             }
         }
 
-        NeuralNetwork network = new NeuralNetwork(200, 200,4);
-        network.trainNetwork();
-    }
+        /*
+         * Read facit.
+         */
 
+        /*
+        br = null;
+
+        try {
+
+            br = new BufferedReader(new FileReader(trainingFacit));
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if(line.charAt(0) == 'I'){
+                    char[][] face = new char[20][20];
+
+                    for(int y = 0 ; y < 20 ; y++){
+                        for(int x = 0 ; x < 20 ; x++){
+                            face[y][x] = line.charAt(x);
+                        }
+                    }
+                    testFaces.add(face);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        */
+
+        /*
+         * Create network.
+         */
+        NeuralNetwork network = new NeuralNetwork(20, 20,4);
+    }
 }
