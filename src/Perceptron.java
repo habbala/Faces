@@ -31,58 +31,31 @@ public class Perceptron {
 
     }
 
-    private int summateInput(){
+    public double output(FaceMood faceMood){
 
-        if(guessOutput() > ActivationFunction.Sigmoid
-                (activationThreshold)){
+        if(faceMood.equals(FaceMood.SAD)){
 
-            return 1;
-
-        } else {
-
-            return 0;
-        }
-    }
-
-    public boolean isActivated(){
-
-            if (summateInput() == 1){
-
-                return true;
-            }
-
-        return false;
-    }
-
-    private double guessOutput(){
-
-        if((sadFace * input) >= 1){
-
-            faceMood = FaceMood.SAD;
-            return 1;
+            return sadFace * input;
         }
 
-        if((happyFace * input) >= 1){
+        if(faceMood.equals(FaceMood.HAPPY)){
 
-            faceMood = FaceMood.HAPPY;
-            return 1;
+            return happyFace * input;
         }
 
-        if((mFace * input) >= 1){
+        if(faceMood.equals(FaceMood.MISCHIEVOUS)){
 
-            faceMood = FaceMood.MISCHIEVOUS;
-            return 1;
+            return mFace * input;
         }
 
-        if((angryFace * input) >= 1){
+        if(faceMood.equals(FaceMood.ANGRY)){
 
-            faceMood = FaceMood.ANGRY;
-            return 1;
+            return angryFace * input;
         }
 
         else {
 
-            System.out.println("Did not activate.");
+            System.out.println("No faceMood found.");
             return 0;
         }
     }

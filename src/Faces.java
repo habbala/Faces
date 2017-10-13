@@ -123,5 +123,11 @@ public class Faces {
          * Create network.
          */
         NeuralNetwork network = new NeuralNetwork(20, 20,4);
+
+        network.calculateNetValues();
+    }
+
+    public void readTrainingFile(String trainingFile){
+
     }
 }

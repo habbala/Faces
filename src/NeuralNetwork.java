@@ -1,21 +1,21 @@
 public class NeuralNetwork {
 
     private Perceptron[][] perceptrons;
-    private double moodArray;
+    private double[] netArray;
 
-    private int ySize, xSize, inputs, sadCount, happyCount, mischievousCount,
-            angryCount, moodCount;
+    private double ySize, xSize, inputs, netSadValue, netHappyValue,
+            netMischeivousValue, netAngryValue;
 
     public NeuralNetwork(int ySize, int xSize, int inputs) {
 
         this.ySize = ySize;
         this.xSize = xSize;
         this.inputs = inputs;
-        this.sadCount = 0;
-        this.happyCount = 0;
-        this.mischievousCount = 0;
-        this.angryCount = 0;
-        this.moodCount = 0;
+        this.netSadValue = 0;
+        this.netHappyValue = 0;
+        this.netMischeivousValue = 0;
+        this.netAngryValue = 0;
+        this.netSadValue = 0;
 
         this.perceptrons = new Perceptron[ySize][xSize];
 
@@ -26,40 +26,30 @@ public class NeuralNetwork {
         }
     }
 
-    public FaceMood moodDetector(){
+    public double[] calculateNetValues(){
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
 
-                if(perceptrons[y][x].isActivated()){
-
-                    switch(perceptrons[y][x].getFaceMood()) {
-
-                        case SAD:
-                            sadCount++;
-                            break;
-
-                        case HAPPY:
-                            happyCount++;
-                            break;
-
-                        case MISCHIEVOUS:
-                            mischievousCount++;
-                            break;
-
-                        case ANGRY:
-                            angryCount++;
-                            break;
-                    }
-                }
+                netSadValue += perceptrons[y][x].output(FaceMood.SAD);
+                netHappyValue += perceptrons[y][x].output(FaceMood.HAPPY);
+                netMischeivousValue += perceptrons[y][x].output(FaceMood
+                        .MISCHIEVOUS);
+                netAngryValue += perceptrons[y][x].output(FaceMood.ANGRY);
             }
         }
 
-        for(int i = 0; i < 4 ; i++){
+        netArray[0] = ActivationFunction.Sigmoid(netSadValue);
+        netArray[1] = ActivationFunction.Sigmoid(netHappyValue);
+        netArray[2] = ActivationFunction.Sigmoid(netMischeivousValue);
+        netArray[3] = ActivationFunction.Sigmoid(netAngryValue);
 
-        }
+        return netArray;
+    }
 
-        return FaceMood.SAD;
+    public void calculateError(double[] netArray){
+
+
     }
 
     public void trainNetwork(){
