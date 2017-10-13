@@ -16,5 +16,4 @@ public class NeuralNetwork {
     public void TrainNetwork(){
 
     }
-
 }
