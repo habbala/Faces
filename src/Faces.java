@@ -13,18 +13,22 @@ public class Faces {
     //training-file.txt
     // training-facit.txt
     // test-file.txt
-    public static void main(String[] args) {
+    private LinkedList<String[][]> trainingFaces;
+    private String trainingFile, trainingFacit, testFile;
 
-        //String trainingFile = args[0];
-        //String trainingFacit = args[1];
-        //String testFile = args[2];
 
-        String trainingFile = "training.txt";
+    public Faces(String trainingFile, String trainingFacit){
 
-        /*
-         * Read faces from file.
-         */
-        LinkedList<char[][]> testFaces = new LinkedList<>();
+        this.trainingFile = trainingFile;
+        this.trainingFacit = trainingFacit;
+        //this.testFile = testFile;
+
+        //readTestFile(testFile);
+    }
+
+    public void readTrainingFile(){
+
+        trainingFaces = new LinkedList<>();
 
         BufferedReader br = null;
 
@@ -34,43 +38,64 @@ public class Faces {
 
             String line;
 
-            char[][] face = new char[20][20];
+            String[][] faceImage = new String[20][20];
 
+            int z = 0;
             int y = 0;
+            int x;
 
             while ((line = br.readLine()) != null) {
 
                 if(!line.isEmpty()) {
+
                     if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
 
-                        for (int x = 0 ; x < line.length() ; x++) {
-                            if(!Character.isWhitespace(line.charAt(x))){
-                                face[y][x] = line.charAt(x);
-                                System.out.print(face[y][x]);
+                        for (x = 0 ; x < line.length() ; x++) {
 
-                                if(!Character.isWhitespace(line.charAt(x+1))){
-                                    x++;
-                                    face[y][x] = line.charAt(x);
-                                    System.out.print(face[y][x]);
+                            if(!Character.isWhitespace(line.charAt(x))){
+
+                                try{
+
+                                    if((x+1)!= line.length() && !Character
+                                            .isWhitespace(line.charAt(x+1))){
+
+                                        faceImage[y][z] = (line.charAt(x)+""
+                                                + line.charAt(x+1));
+                                        x++;
+                                        z++;
+                                    }
+                                    else{
+
+                                        faceImage[y][z] = ""+line.charAt(x);
+                                        z++;
+                                    }
+
+                                }catch(StringIndexOutOfBoundsException e){
+
+                                    e.printStackTrace();
+                                }
+
+                                if(y >= 19){
+
+                                    trainingFaces.add(faceImage);
+                                    y = 0;
+                                    z = 0;
+
+                                } else {
+
+                                    y++;
                                 }
                             }
                         }
-                        System.out.println("");
                     }
-                }
-
-                if(y >= 19){
-                    testFaces.add(face);
-                    System.out.println("\n");
-                    y = 0;
-                } else {
-                    y++;
                 }
             }
 
         } catch (IOException e) {
+
             e.printStackTrace();
         } finally {
+
             try {
                 if (br != null) {
                     br.close();
@@ -79,6 +104,32 @@ public class Faces {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void readTrainingFacit(){
+
+
+    }
+    public void readTestFile(){
+
+
+    }
+
+    public static void main(String[] args) {
+
+        //String trainingFile = args[0];
+        //String trainingFacit = args[1];
+        //String testFile = args[2];
+
+        Faces faces = new Faces("training.txt", "training-Facit.txt");
+
+        faces.readTrainingFile();
+        faces.readTrainingFacit();
+        //faces.readTestFile();
+
+        /*
+         * Read faces from file.
+         */
 
         /*
          * Read facit.
@@ -122,12 +173,8 @@ public class Faces {
         /*
          * Create network.
          */
-        NeuralNetwork network = new NeuralNetwork(20, 20,4);
+        /*NeuralNetwork network = new NeuralNetwork(20, 20,4);
 
-        network.calculateNetValues();
-    }
-
-    public void readTrainingFile(String trainingFile){
-
+        network.calculateNetValues();*/
     }
 }
