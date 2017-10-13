@@ -3,7 +3,8 @@ import java.util.Random;
 public class Perceptron {
 
     private int faceMood;
-    private double activationThreshold, sadFace, happyFace, mFace, angryFace;
+    private double activationThreshold, sadFace, happyFace, mFace, angryFace,
+            trainRate;
     private Random randomValue, randomSadFace, randomHappyFace, randomMFace,
             randomAngryFace;
     private int bias, input;
@@ -14,6 +15,7 @@ public class Perceptron {
         this.input = input;
 
         this.faceMood = 0;
+        this.trainRate = 0.05;
 
         this.randomValue = new Random();
         this.bias = randomValue.nextInt(31);
@@ -61,19 +63,19 @@ public class Perceptron {
             return 1;
         }
 
-        else if((happyFace * input) >= 1){
+        if((happyFace * input) >= 1){
 
             faceMood = 2;
             return 1;
         }
 
-        else if((mFace * input) >= 1){
+        if((mFace * input) >= 1){
 
             faceMood = 3;
             return 1;
         }
 
-        else if((angryFace * input) >= 1){
+        if((angryFace * input) >= 1){
 
             faceMood = 4;
             return 1;
@@ -89,5 +91,42 @@ public class Perceptron {
     public int getFaceMood(){
 
         return faceMood;
+    }
+
+    public void train(int faceMood){
+
+        if(this.faceMood != faceMood){
+
+            switch(this.faceMood){
+
+                case 1:
+                    sadFace += trainRate;
+                    happyFace -= trainRate;
+                    mFace -= trainRate;
+                    angryFace -= trainRate;
+                    break;
+
+                case 2:
+                    sadFace -= trainRate;
+                    happyFace += trainRate;
+                    mFace -= trainRate;
+                    angryFace -= trainRate;
+                    break;
+
+                case 3:
+                    sadFace -= trainRate;
+                    happyFace -= trainRate;
+                    mFace += trainRate;
+                    angryFace -= trainRate;
+                    break;
+
+                case 4:
+                    sadFace -= trainRate;
+                    happyFace -= trainRate;
+                    mFace -= trainRate;
+                    angryFace += trainRate;
+                    break;
+            }
+        }
     }
 }
