@@ -2,17 +2,18 @@ import java.util.Random;
 
 public class Perceptron {
 
-    private double[] faceMood, weigth;
+    private int faceMood;
     private double activationThreshold, sadFace, happyFace, mFace, angryFace;
     private Random randomValue, randomSadFace, randomHappyFace, randomMFace,
             randomAngryFace;
-    private int bias;
+    private int bias, input;
 
-    public Perceptron(int inputs){
+    public Perceptron(int input){
 
-        this.faceMood = new double[inputs];//Byt ut mot inskickad input-array.
-        this.weigth = new double[inputs];
         this.activationThreshold = 0.5;
+        this.input = input;
+
+        this.faceMood = 0;
 
         this.randomValue = new Random();
         this.bias = randomValue.nextInt(31);
@@ -29,9 +30,9 @@ public class Perceptron {
 
     }
 
-    int summateInput(int i){
+    public int summateInput(){
 
-        if(guessOutput() * weigth[i] > ActivationFunction.Sigmoid
+        if(guessOutput() > ActivationFunction.Sigmoid
                 (activationThreshold)){
 
             return 1;
@@ -44,21 +45,49 @@ public class Perceptron {
 
     public boolean isActivated(){
 
-        for(int i = 0 ; i < faceMood.length ; i++){
-
-            if (summateInput(i) >= 1){
+            if (summateInput() == 1){
 
                 return true;
             }
-        }
 
         return false;
     }
 
     public double guessOutput(){
 
+        if((sadFace * input) >= 1){
 
+            faceMood = 1;
+            return 1;
+        }
 
-        return bias;
+        else if((happyFace * input) >= 1){
+
+            faceMood = 2;
+            return 1;
+        }
+
+        else if((mFace * input) >= 1){
+
+            faceMood = 3;
+            return 1;
+        }
+
+        else if((angryFace * input) >= 1){
+
+            faceMood = 4;
+            return 1;
+        }
+
+        else {
+
+            System.out.println("Did not activate.");
+            return 0;
+        }
+    }
+
+    public int getFaceMood(){
+
+        return faceMood;
     }
 }
