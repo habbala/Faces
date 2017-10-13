@@ -2,28 +2,24 @@ import java.util.Random;
 
 public class Perceptron {
 
-    private int faceMood;
+    private FaceMood faceMood;
     private double activationThreshold, sadFace, happyFace, mFace, angryFace,
             trainRate;
-    private Random randomValue, randomSadFace, randomHappyFace, randomMFace,
-            randomAngryFace;
-    private int bias, input;
+    private int input;
 
     public Perceptron(int input){
 
         this.activationThreshold = 0.5;
         this.input = input;
 
-        this.faceMood = 0;
         this.trainRate = 0.05;
 
-        this.randomValue = new Random();
-        this.bias = randomValue.nextInt(31);
+        Random randomSadFace, randomHappyFace, randomMFace, randomAngryFace;
 
-        this.randomSadFace = new Random();
-        this.randomHappyFace = new Random();
-        this.randomMFace = new Random();
-        this.randomAngryFace = new Random();
+        randomSadFace = new Random();
+        randomHappyFace = new Random();
+        randomMFace = new Random();
+        randomAngryFace = new Random();
 
         this.sadFace = randomSadFace.nextDouble();
         this.happyFace = randomHappyFace.nextDouble();
@@ -32,7 +28,7 @@ public class Perceptron {
 
     }
 
-    public int summateInput(){
+    private int summateInput(){
 
         if(guessOutput() > ActivationFunction.Sigmoid
                 (activationThreshold)){
@@ -55,29 +51,29 @@ public class Perceptron {
         return false;
     }
 
-    public double guessOutput(){
+    private double guessOutput(){
 
         if((sadFace * input) >= 1){
 
-            faceMood = 1;
+            faceMood = FaceMood.SAD;
             return 1;
         }
 
         if((happyFace * input) >= 1){
 
-            faceMood = 2;
+            faceMood = FaceMood.HAPPY;
             return 1;
         }
 
         if((mFace * input) >= 1){
 
-            faceMood = 3;
+            faceMood = FaceMood.MISCHIEVOUS;
             return 1;
         }
 
         if((angryFace * input) >= 1){
 
-            faceMood = 4;
+            faceMood = FaceMood.ANGRY;
             return 1;
         }
 
@@ -88,39 +84,39 @@ public class Perceptron {
         }
     }
 
-    public int getFaceMood(){
+    public FaceMood getFaceMood(){
 
         return faceMood;
     }
 
-    public void train(int faceMood){
+    public void train(FaceMood faceMood){
 
         if(this.faceMood != faceMood){
 
             switch(this.faceMood){
 
-                case 1:
+                case SAD:
                     sadFace += trainRate;
                     happyFace -= trainRate;
                     mFace -= trainRate;
                     angryFace -= trainRate;
                     break;
 
-                case 2:
+                case HAPPY:
                     sadFace -= trainRate;
                     happyFace += trainRate;
                     mFace -= trainRate;
                     angryFace -= trainRate;
                     break;
 
-                case 3:
+                case MISCHIEVOUS:
                     sadFace -= trainRate;
                     happyFace -= trainRate;
                     mFace += trainRate;
                     angryFace -= trainRate;
                     break;
 
-                case 4:
+                case ANGRY:
                     sadFace -= trainRate;
                     happyFace -= trainRate;
                     mFace -= trainRate;
