@@ -9,16 +9,16 @@ public class Perceptron {
         activationThreshold = 0.5;
     }
 
-    public int ProcessInputs(){
+    public int processInputs(){
         for(int i = 0 ; i < input.length ; i++){
-            if (SummateInput(i) >= 1){
+            if (summateInput(i) >= 1){
                 return 1;
             }
         }
         return 0;
     }
 
-    int SummateInput(int i){
+    int summateInput(int i){
         if(input[i] * weigth[i] >
                 ActivationFunction.Sigmoid(activationThreshold)){
             return 1;
