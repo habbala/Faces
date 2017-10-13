@@ -2,7 +2,7 @@ public class Perceptron {
     private double[] input, weigth;
     private double bias, activationThreshold;
 
-    public Perceptron(int inputs, double bias){
+    public Perceptron(int inputs){
         this.input = new double[inputs];
         this.weigth = new double[inputs];
         this.bias = bias;
@@ -10,13 +10,16 @@ public class Perceptron {
     }
 
     private double Summate(){
-        double sum = 0;
+        /*
+        double[] sum = new double[input.length];
 
         for(int i = 0 ; i < input.length ; i++){
-            sum += input[i] * weigth[i];
+            sum[i] += input[i] * weigth[i];
         }
 
         return bias + sum;
+        */
+        return 0;
     }
 
     public int ProcessInput(){
@@ -26,5 +29,4 @@ public class Perceptron {
             return 0;
         }
     }
-
 }
