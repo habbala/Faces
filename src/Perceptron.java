@@ -14,17 +14,20 @@ public class Perceptron {
 
         this.trainRate = 0.05;
 
-        Random randomSadFace, randomHappyFace, randomMFace, randomAngryFace;
+        this.faceMood = FaceMood.getRandom();
 
-        randomSadFace = new Random();
-        randomHappyFace = new Random();
-        randomMFace = new Random();
-        randomAngryFace = new Random();
+        Random randomSadFaceWeight, randomHappyFaceWeight,
+                randomMischievousFaceWeight, randomAngryFaceWeight;
 
-        this.sadFace = randomSadFace.nextDouble();
-        this.happyFace = randomHappyFace.nextDouble();
-        this.mFace = randomMFace.nextDouble();
-        this.angryFace = randomAngryFace.nextDouble();
+        randomSadFaceWeight = new Random();
+        randomHappyFaceWeight = new Random();
+        randomMischievousFaceWeight = new Random();
+        randomAngryFaceWeight = new Random();
+
+        this.sadFace = randomSadFaceWeight.nextDouble();
+        this.happyFace = randomHappyFaceWeight.nextDouble();
+        this.mFace = randomMischievousFaceWeight.nextDouble();
+        this.angryFace = randomAngryFaceWeight.nextDouble();
 
     }
 
