@@ -43,15 +43,25 @@ public class Faces {
                 if(!line.isEmpty()) {
                     if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
 
-                        for (int x = 0; x < 20; x++) {
-                            face[y][x] = line.charAt(x);
+                        for (int x = 0 ; x < line.length() ; x++) {
+                            if(!Character.isWhitespace(line.charAt(x))){
+                                face[y][x] = line.charAt(x);
+                                System.out.print(face[y][x]);
+
+                                if(!Character.isWhitespace(line.charAt(x+1))){
+                                    x++;
+                                    face[y][x] = line.charAt(x);
+                                    System.out.print(face[y][x]);
+                                }
+                            }
                         }
+                        System.out.println("");
                     }
                 }
 
                 if(y >= 19){
                     testFaces.add(face);
-                    System.out.println(face);
+                    System.out.println("\n");
                     y = 0;
                 } else {
                     y++;
