@@ -5,25 +5,22 @@ public class Perceptron {
     public Perceptron(int inputs){
         this.input = new double[inputs];
         this.weigth = new double[inputs];
-        this.bias = bias;
+        this.bias = 0;
         activationThreshold = 0.5;
     }
 
-    private double Summate(){
-        /*
-        double[] sum = new double[input.length];
-
+    public int ProcessInputs(){
         for(int i = 0 ; i < input.length ; i++){
-            sum[i] += input[i] * weigth[i];
+            if (SummateInput(i) >= 1){
+                return 1;
+            }
         }
-
-        return bias + sum;
-        */
         return 0;
     }
 
-    public int ProcessInput(){
-        if(Summate() > ActivationFunction.Sigmoid(activationThreshold)){
+    int SummateInput(int i){
+        if(input[i] * weigth[i] >
+                ActivationFunction.Sigmoid(activationThreshold)){
             return 1;
         } else {
             return 0;
