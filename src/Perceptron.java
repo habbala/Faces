@@ -2,19 +2,31 @@ import java.util.Random;
 
 public class Perceptron {
 
-    private double[] input, weigth;
-    private double bias, activationThreshold;
-    private Random randomValue;
-    private int firstRandomValue;
+    private double[] faceMood, weigth;
+    private double activationThreshold, sadFace, happyFace, mFace, angryFace;
+    private Random randomValue, randomSadFace, randomHappyFace, randomMFace,
+            randomAngryFace;
+    private int bias;
 
     public Perceptron(int inputs){
 
-        this.input = new double[inputs];//Byt ut mot inskickad input-array.
+        this.faceMood = new double[inputs];//Byt ut mot inskickad input-array.
         this.weigth = new double[inputs];
-        this.bias = 0;
         this.activationThreshold = 0.5;
+
         this.randomValue = new Random();
-        this.firstRandomValue = randomValue.nextInt(31);
+        this.bias = randomValue.nextInt(31);
+
+        this.randomSadFace = new Random();
+        this.randomHappyFace = new Random();
+        this.randomMFace = new Random();
+        this.randomAngryFace = new Random();
+
+        this.sadFace = randomSadFace.nextDouble();
+        this.happyFace = randomHappyFace.nextDouble();
+        this.mFace = randomMFace.nextDouble();
+        this.angryFace = randomAngryFace.nextDouble();
+
     }
 
     int summateInput(int i){
@@ -32,7 +44,7 @@ public class Perceptron {
 
     public boolean isActivated(){
 
-        for(int i = 0 ; i < input.length ; i++){
+        for(int i = 0 ; i < faceMood.length ; i++){
 
             if (summateInput(i) >= 1){
 
@@ -46,5 +58,7 @@ public class Perceptron {
     public double guessOutput(){
 
 
+
+        return bias;
     }
 }
