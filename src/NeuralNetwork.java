@@ -1,12 +1,15 @@
 public class NeuralNetwork {
-    private Perceptron[] perceptrons;
 
-    public NeuralNetwork(int population, int inputs) {
+    private Perceptron[][] perceptrons;
 
-        this.perceptrons = new Perceptron[population];
+    public NeuralNetwork(int ySize, int xSize, int inputs) {
 
-        for(int i = 0 ; i < population ; i++){
-            perceptrons[i] = new Perceptron(inputs,0);
+        this.perceptrons = new Perceptron[ySize][xSize];
+
+        for(int y = 0 ; y < ySize ; y++) {
+            for (int x = 0; x < xSize; x++) {
+                perceptrons[y][x] = new Perceptron(inputs);
+            }
         }
     }
 
