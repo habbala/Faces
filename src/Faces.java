@@ -143,6 +143,7 @@ public class Faces {
                                         i++;
                                         x++;
                                     }
+
                                     else{
 
                                         faceImage[y][x] = ""+line.charAt(i);
