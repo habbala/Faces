@@ -128,7 +128,7 @@ public class Faces {
 
                 if(!line.isEmpty()) {
 
-                    if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
+                    if (line.charAt(0) == 'I') {
 
                         for (x = 0 ; x < line.length() ; x++) {
 
