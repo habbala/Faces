@@ -207,10 +207,13 @@ public class Faces {
          * Create network.
          */
         NeuralNetwork network = new NeuralNetwork(20, 20);
+        FaceMood answer;
 
         for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
 
-            network.readInput(faces.trainingFaces.pollFirst());
+            answer = network.readInput(faces.trainingFaces.pollFirst());
+
+            network.calculateError(answer);
         }
 
 

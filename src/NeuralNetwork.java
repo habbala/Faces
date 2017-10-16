@@ -65,7 +65,7 @@ public class NeuralNetwork {
         return netArray;
     }
 
-    public void calculateError(double[] netArray){
+    public void calculateError(FaceMood answer){
 
     }
 }
