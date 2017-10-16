@@ -31,19 +31,12 @@ public class NeuralNetwork {
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
+                for(int i = 0; i < 4; i++) {
 
-                perceptrons[y][x].setWeight(FaceMood.SAD, calculateError
-                        (activationArray[0], desiredOutput, Integer.parseInt
-                                (input[y][x])));
-                perceptrons[y][x].setWeight(FaceMood.HAPPY, calculateError
-                        (activationArray[1], desiredOutput, Integer.parseInt
-                                (input[y][x])));
-                perceptrons[y][x].setWeight(FaceMood.MISCHIEVOUS, calculateError
-                        (activationArray[2], desiredOutput, Integer.parseInt
-                                (input[y][x])));
-                perceptrons[y][x].setWeight(FaceMood.ANGRY, calculateError
-                        (activationArray[3], desiredOutput, Integer.parseInt
-                                (input[y][x])));
+                    perceptrons[y][x].setWeight(FaceMood.values()[i], calculateError
+                            (activationArray[i], desiredOutput, Integer.parseInt
+                                    (input[y][x])));
+                }
             }
         }
 
