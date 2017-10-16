@@ -26,6 +26,7 @@ public class NeuralNetwork {
     public FaceMood readInput(String input[][], int desiredOutput){
 
         double[] activationArray = calculateNetValues(input);
+        FaceMood faceMood;
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
@@ -38,9 +39,18 @@ public class NeuralNetwork {
             }
         }
 
+        int b = 0;
+
+        for(int i = 1; i < 4; i++){
+
+            if(activationArray[b] < activationArray[i]){
+
+                b = i;
+            }
+        }
         //calculateError(activationArray, desiredOutput);
             //if(output[i] == 1){return output[i]}
-        return FaceMood.SAD;
+        return FaceMood.values()[b];
     }
 
     double[] calculateNetValues(String input[][]){

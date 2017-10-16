@@ -10,7 +10,7 @@ public class Perceptron {
 
         this.activationThreshold = 0.5;
 
-        this.trainRate = 0.05;
+        this.trainRate = 0.5;
 
         this.faceMood = FaceMood.getRandom();
 

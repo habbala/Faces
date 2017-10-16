@@ -180,11 +180,18 @@ public class Faces {
         FaceMood answer;
 
         int correctAnswers = 0;
+        int i;
 
-        for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
+        for(i = 0 ; i < (2*faces.trainingFaces.size())/3; i++){
+
+            network.readInput((String[][])faces.trainingFaces.toArray()[i],
+                    faces.facit[i]);
+        }
+
+        while(i < faces.trainingFaces.size()){
 
             answer = network.readInput((String[][])
-                            faces.trainingFaces.toArray()[i], faces.facit[i]);
+                    faces.trainingFaces.toArray()[i], faces.facit[i]);
 
             if(answer.equals(FaceMood.values()[faces.facit[i]-1])){
                 System.out.println("Correct!");
@@ -196,9 +203,9 @@ public class Faces {
             System.out.println("Image: " + i + ".\nAnswer: " + answer + ". " +
                     "Facit: " +
                     FaceMood.values()[faces.facit[i]-1] + "\n");
-
-            //network.calculateError(answer, faces.facit.pollFirst());
+            i++;
         }
+
         System.out.println("Correct answers: " + correctAnswers + ", " +
                 ((double)correctAnswers/faces.trainingFaces.size()) * 100 +
                 "%");
