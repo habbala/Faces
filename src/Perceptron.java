@@ -57,6 +57,26 @@ public class Perceptron {
         return faceMood;
     }
 
+    public void setWeight(FaceMood faceMood, double newWeight){
+
+        if(faceMood.equals(FaceMood.SAD)){
+
+            sadFace += newWeight;
+        }
+        else if(faceMood.equals(FaceMood.HAPPY)){
+
+            happyFace += newWeight;
+        }
+        else if(faceMood.equals(FaceMood.MISCHIEVOUS)){
+
+            mFace += newWeight;
+        }
+        else if(faceMood.equals(FaceMood.ANGRY)){
+
+            angryFace += newWeight;
+        }
+    }
+
     public void backPropagationTraining(FaceMood faceMood){
 
         if(this.faceMood != faceMood){

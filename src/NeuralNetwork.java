@@ -2,7 +2,7 @@ public class NeuralNetwork {
 
     private Perceptron[][] perceptrons;
     private double[] netArray;
-    private double ySize, xSize;
+    private double ySize, xSize, error, deltaweight, learningRate;
 
     public NeuralNetwork(int ySize, int xSize) {
 
@@ -10,6 +10,8 @@ public class NeuralNetwork {
         this.xSize = xSize;
 
         netArray = new double[4];
+
+        learningRate = 0.05;
 
         this.perceptrons = new Perceptron[ySize][xSize];
 
@@ -21,24 +23,37 @@ public class NeuralNetwork {
 
     }
 
-    public FaceMood readInput(String input[][]){
+    public FaceMood readInput(String input[][], int desiredOutput){
 
-        double[] output = new double[4];
+        double[] activationArray = new double[4];
 
-        output = calculateNetValues(input);
+        activationArray = calculateNetValues(input);
 
-        int highestOutput = 0;
+        for(int y = 0 ; y < ySize ; y++) {
+            for (int x = 0; x < xSize; x++) {
 
-        for(int i = 0 ; i < 3 ; i++){
-            if(output[i] < output[i+1]){
-                highestOutput = i+1;
+                perceptrons[y][x].setWeight(FaceMood.SAD, calculateError
+                        (activationArray[0], desiredOutput, Integer.parseInt
+                                (input[y][x])));
+                perceptrons[y][x].setWeight(FaceMood.HAPPY, calculateError
+                        (activationArray[1], desiredOutput, Integer.parseInt
+                                (input[y][x])));
+                perceptrons[y][x].setWeight(FaceMood.MISCHIEVOUS, calculateError
+                        (activationArray[2], desiredOutput, Integer.parseInt
+                                (input[y][x])));
+                perceptrons[y][x].setWeight(FaceMood.ANGRY, calculateError
+                        (activationArray[3], desiredOutput, Integer.parseInt
+                                (input[y][x])));
             }
-            //if(output[i] == 1){return output[i]}
         }
-        return FaceMood.values()[highestOutput];
+
+        //calculateError(activationArray, desiredOutput);
+            //if(output[i] == 1){return output[i]}
+        return FaceMood.SAD;
     }
 
     double[] calculateNetValues(String input[][]){
+
         int netSadValue = 0;
         int netHappyValue = 0;
         int netMischeivousValue = 0;
@@ -65,11 +80,11 @@ public class NeuralNetwork {
         return netArray;
     }
 
-    public void calculateError(FaceMood answer, FaceMood facit){
+    public double calculateError(double activationValue, int
+            desiredOutput, int input){
 
-        if(!answer.equals(facit)){
+        error = activationValue - desiredOutput;
 
-
-        }
+        return learningRate * error * input;
     }
 }
