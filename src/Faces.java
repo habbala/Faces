@@ -41,9 +41,8 @@ public class Faces {
 
             String[][] faceImage = new String[20][20];
 
-            int z = 0;
+            int x = 0;
             int y = 0;
-            int x;
 
             while ((line = br.readLine()) != null) {
 
@@ -51,43 +50,43 @@ public class Faces {
 
                     if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
 
-                        for (x = 0 ; x < line.length() ; x++) {
+                        for (int i = 0 ; i < line.length() ; i++) {
 
-                            if(!Character.isWhitespace(line.charAt(x))){
+                            if(!Character.isWhitespace(line.charAt(i))){
 
                                 try{
 
-                                    if((x+1)!= line.length() && !Character
-                                            .isWhitespace(line.charAt(x+1))){
+                                    if((i+1) < line.length() && !Character
+                                            .isWhitespace(line.charAt(i+1))){
 
-                                        faceImage[y][z] = (line.charAt(x)+""
-                                                + line.charAt(x+1));
+                                        faceImage[y][x] = (line.charAt(i)+""
+                                                + line.charAt(i+1));
+
+                                        i++;
                                         x++;
-                                        z++;
                                     }
                                     else{
 
-                                        faceImage[y][z] = ""+line.charAt(x);
-                                        z++;
+                                        faceImage[y][x] = ""+line.charAt(i);
+                                        x++;
                                     }
 
                                 }catch(StringIndexOutOfBoundsException e){
 
                                     e.printStackTrace();
                                 }
-
-                                if(y >= 19){
-
-                                    trainingFaces.add(faceImage);
-                                    y = 0;
-                                    z = 0;
-
-                                } else {
-
-                                    y++;
-                                }
                             }
                         }
+
+                        if(y >= 19){
+                            trainingFaces.add(faceImage);
+                            y = 0;
+
+                        } else {
+                            y++;
+                        }
+
+                        x = 0;
                     }
                 }
             }
@@ -121,9 +120,8 @@ public class Faces {
 
             String[][] faceImage = new String[20][20];
 
-            int z = 0;
+            int x = 0;
             int y = 0;
-            int x;
 
             while ((line = br.readLine()) != null) {
 
@@ -131,43 +129,46 @@ public class Faces {
 
                     if (line.charAt(0) == 'I') {
 
-                        for (x = 0 ; x < line.length() ; x++) {
+                        for (int i = 0 ; i < line.length() ; i++) {
 
-                            if(!Character.isWhitespace(line.charAt(x))){
+                            if(!Character.isWhitespace(line.charAt(i))){
 
                                 try{
 
-                                    if((x+1)!= line.length() && !Character
-                                            .isWhitespace(line.charAt(x+1))){
+                                    if((i+1) < line.length() && !Character
+                                            .isWhitespace(line.charAt(i+1))){
 
-                                        faceImage[y][z] = (line.charAt(x)+""
-                                                + line.charAt(x+1));
+                                        faceImage[y][x] = (line.charAt(i)+""
+                                                + line.charAt(i+1));
+                                        i++;
                                         x++;
-                                        z++;
                                     }
                                     else{
 
-                                        faceImage[y][z] = ""+line.charAt(x);
-                                        z++;
+                                        faceImage[y][x] = ""+line.charAt(i);
+                                        x++;
                                     }
 
                                 }catch(StringIndexOutOfBoundsException e){
 
                                     e.printStackTrace();
                                 }
-
-                                if(y >= 19){
-
-                                    trainingFaces.add(faceImage);
-                                    y = 0;
-                                    z = 0;
-
-                                } else {
-
-                                    y++;
-                                }
                             }
                         }
+
+                        if(y >= 19){
+
+                            trainingFaces.add(faceImage);
+                            y = 0;
+
+                        } else {
+
+                            y++;
+
+                        }
+
+                        x = 0;
+
                     }
                 }
             }
@@ -200,13 +201,14 @@ public class Faces {
         Faces faces = new Faces("training.txt", "training-Facit.txt");
 
         faces.readTrainingFile();
-        //faces.readTrainingFacit();
+        faces.readTrainingFacit();
         //faces.readTestFile();
 
 
         /*
          * Create network.
          */
+
         NeuralNetwork network = new NeuralNetwork(20, 20);
         FaceMood answer;
 
@@ -214,7 +216,9 @@ public class Faces {
 
             answer = network.readInput(faces.trainingFaces.pollFirst());
 
-            network.calculateError(answer, faces.facit.pollFirst());
+            System.out.println(answer);
+
+            //network.calculateError(answer, faces.facit.pollFirst());
         }
 
 
