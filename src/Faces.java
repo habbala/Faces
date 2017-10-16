@@ -203,6 +203,7 @@ public class Faces {
                 ((double)correctAnswers/faces.trainingFaces.size()) * 100 +
                 "%");
 
+
         //network.calculateNetValues();
     }
 }
