@@ -199,7 +199,7 @@ public class Faces {
         Faces faces = new Faces("training.txt", "training-Facit.txt");
 
         faces.readTrainingFile();
-        faces.readTrainingFacit();
+        //faces.readTrainingFacit();
         //faces.readTestFile();
 
 
@@ -207,6 +207,7 @@ public class Faces {
          * Create network.
          */
         NeuralNetwork network = new NeuralNetwork(20, 20,4);
+
 
 
 

@@ -2,11 +2,11 @@ public class NeuralNetwork {
 
     private Perceptron[][] perceptrons;
     private double[] netArray;
-
-    private double ySize, xSize, inputs, netSadValue, netHappyValue,
+    private String[][] inputs;
+    private double ySize, xSize, netSadValue, netHappyValue,
             netMischeivousValue, netAngryValue;
 
-    public NeuralNetwork(int ySize, int xSize, int inputs) {
+    public NeuralNetwork(int ySize, int xSize, String[][] inputs) {
 
         this.ySize = ySize;
         this.xSize = xSize;
@@ -21,7 +21,8 @@ public class NeuralNetwork {
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
-                perceptrons[y][x] = new Perceptron(inputs);
+                perceptrons[y][x] = new Perceptron(Integer.parseInt
+                        (inputs[y][x]));
             }
         }
     }
