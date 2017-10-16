@@ -206,14 +206,17 @@ public class Faces {
         /*
          * Create network.
          */
-        NeuralNetwork network = new NeuralNetwork(20, 20);
+        NeuralNetwork network = new NeuralNetwork(200, 200);
         FaceMood answer;
 
-        for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
+        //for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
+        for(int i = 0 ; i < 1 ; i++){
 
             answer = network.readInput(faces.trainingFaces.pollFirst());
 
-            network.calculateError(answer);
+            System.out.println("Image" + i + "is thought to be " + answer);
+
+            //network.calculateError(answer);
         }
 
 

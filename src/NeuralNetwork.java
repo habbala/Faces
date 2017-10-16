@@ -9,6 +9,8 @@ public class NeuralNetwork {
         this.ySize = ySize;
         this.xSize = xSize;
 
+        netArray = new double[4];
+
         this.perceptrons = new Perceptron[ySize][xSize];
 
         for(int y = 0 ; y < ySize ; y++) {
@@ -23,11 +25,7 @@ public class NeuralNetwork {
 
         double[] output = new double[4];
 
-        for(int y = 0 ; y < 200 ; y++){
-            for(int x = 0 ; x < 200 ; x++) {
-                output = calculateNetValues(Integer.parseInt(input[y][x]));
-            }
-        }
+        output = calculateNetValues(input);
 
         int highestOutput = 0;
 
@@ -40,7 +38,7 @@ public class NeuralNetwork {
         return FaceMood.values()[highestOutput];
     }
 
-    double[] calculateNetValues(int input){
+    double[] calculateNetValues(String input[][]){
         int netSadValue = 0;
         int netHappyValue = 0;
         int netMischeivousValue = 0;
@@ -49,11 +47,13 @@ public class NeuralNetwork {
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
 
-                netSadValue += perceptrons[y][x].output(FaceMood.SAD, input);
-                netHappyValue += perceptrons[y][x].output(FaceMood.HAPPY, input);
+                int greyLevel = Integer.parseInt(input[y][x]);
+
+                netSadValue += perceptrons[y][x].output(FaceMood.SAD, greyLevel);
+                netHappyValue += perceptrons[y][x].output(FaceMood.HAPPY, greyLevel);
                 netMischeivousValue += perceptrons[y][x].output(FaceMood
-                        .MISCHIEVOUS, input);
-                netAngryValue += perceptrons[y][x].output(FaceMood.ANGRY, input);
+                        .MISCHIEVOUS, greyLevel);
+                netAngryValue += perceptrons[y][x].output(FaceMood.ANGRY, greyLevel);
             }
         }
 
