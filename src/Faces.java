@@ -14,7 +14,7 @@ public class Faces {
     // training-facit.txt
     // test-file.txt
     private LinkedList<String[][]> trainingFaces;
-    private LinkedList<FaceMood> facit;
+    private int[] facit;
     private String trainingFile, trainingFacit, testFile;
 
 
@@ -108,7 +108,7 @@ public class Faces {
 
     private void readTrainingFacit(){
 
-        facit = new LinkedList<>();
+        facit = new int[trainingFaces.size()];
 
         BufferedReader br = null;
 
@@ -118,59 +118,26 @@ public class Faces {
 
             String line;
 
-            String[][] faceImage = new String[20][20];
-
-            int x = 0;
-            int y = 0;
+            int i = 0;
 
             while ((line = br.readLine()) != null) {
 
                 if(!line.isEmpty()) {
 
-                    if (line.charAt(0) == 'I') {
+                    if (line.charAt(0) == 'I'
+                            && Character.isDigit(line.charAt(5))
+                                && Character.isDigit(line.charAt(
+                                        line.length()-1))){
 
-                        for (int i = 0 ; i < line.length() ; i++) {
-
-                            if(!Character.isWhitespace(line.charAt(i))){
-
-                                try{
-
-                                    if((i+1) < line.length() && !Character
-                                            .isWhitespace(line.charAt(i+1))){
-
-                                        faceImage[y][x] = (line.charAt(i)+""
-                                                + line.charAt(i+1));
-                                        i++;
-                                        x++;
-                                    }
-                                    else{
-
-                                        faceImage[y][x] = ""+line.charAt(i);
-                                        x++;
-                                    }
-
-                                }catch(StringIndexOutOfBoundsException e){
-
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-
-                        if(y >= 19){
-
-                            trainingFaces.add(faceImage);
-                            y = 0;
-
-                        } else {
-
-                            y++;
-
-                        }
-
-                        x = 0;
-
+                        facit[i] = line.charAt(line.length()-1);
+                        i++;
                     }
                 }
+            }
+
+            if(i != trainingFaces.size()){
+                System.out.println("Mismatch! Images: " + trainingFaces.size()
+                + ". Facits: " + i);
             }
 
         } catch (IOException e) {
@@ -216,7 +183,8 @@ public class Faces {
 
             answer = network.readInput(faces.trainingFaces.pollFirst());
 
-            System.out.println(answer);
+            System.out.println("Answer: " + answer + ". Correct: " +
+                    faces.facit[i]);
 
             //network.calculateError(answer, faces.facit.pollFirst());
         }
