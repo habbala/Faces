@@ -2,15 +2,13 @@ public class NeuralNetwork {
 
     private Perceptron[][] perceptrons;
     private double[] netArray;
-    private String[][] inputs;
     private double ySize, xSize, netSadValue, netHappyValue,
             netMischeivousValue, netAngryValue;
 
-    public NeuralNetwork(int ySize, int xSize, String[][] inputs) {
+    public NeuralNetwork(int ySize, int xSize) {
 
         this.ySize = ySize;
         this.xSize = xSize;
-        this.inputs = inputs;
         this.netSadValue = 0;
         this.netHappyValue = 0;
         this.netMischeivousValue = 0;
@@ -21,22 +19,47 @@ public class NeuralNetwork {
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
-                perceptrons[y][x] = new Perceptron(Integer.parseInt
-                        (inputs[y][x]));
+                perceptrons[y][x] = new Perceptron();
             }
         }
+
     }
 
-    public double[] calculateNetValues(){
+    public FaceMood readInput(String input[][]){
+
+        double[] output = new double[4];
+
+        for(int y = 0 ; y < 200 ; y++){
+            for(int x = 0 ; x < 200 ; x++) {
+                output = calculateNetValues(Integer.parseInt(input[y][x]));
+            }
+        }
+
+        FaceMood answer;
+
+        for(int i = 0 ; i < 4 ; i++){
+            if(output[i] > output[i+1] && ){
+                if(output[i] > output[i+2]){
+                    if(output[i] > output[i+3]){
+
+                    }
+                }
+            }
+            //if(output[i] == 1){return output[i]}
+        }
+        return answer;
+    }
+
+    double[] calculateNetValues(int input){
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
 
-                netSadValue += perceptrons[y][x].output(FaceMood.SAD);
-                netHappyValue += perceptrons[y][x].output(FaceMood.HAPPY);
+                netSadValue += perceptrons[y][x].output(FaceMood.SAD, input);
+                netHappyValue += perceptrons[y][x].output(FaceMood.HAPPY, input);
                 netMischeivousValue += perceptrons[y][x].output(FaceMood
-                        .MISCHIEVOUS);
-                netAngryValue += perceptrons[y][x].output(FaceMood.ANGRY);
+                        .MISCHIEVOUS, input);
+                netAngryValue += perceptrons[y][x].output(FaceMood.ANGRY, input);
             }
         }
 
@@ -50,16 +73,5 @@ public class NeuralNetwork {
 
     public void calculateError(double[] netArray){
 
-
     }
-
-    public void trainNetwork(String[][] faceImage){
-
-        for(int y = 0 ; y < ySize ; y++){
-            for(int x = 0 ; x < xSize ; x++){
-                perceptrons[x][y].readPixel(Integer.parseInt(faceImage[x][y]));
-            }
-        }
-    }
-
 }

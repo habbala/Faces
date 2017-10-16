@@ -5,12 +5,10 @@ public class Perceptron {
     private FaceMood faceMood;
     private double activationThreshold, sadFace, happyFace, mFace, angryFace,
             trainRate;
-    private int input;
 
-    public Perceptron(int input){
+    public Perceptron(){
 
         this.activationThreshold = 0.5;
-        this.input = input;
 
         this.trainRate = 0.05;
 
@@ -31,24 +29,18 @@ public class Perceptron {
 
     }
 
-    public double output(FaceMood faceMood){
+    public double output(FaceMood faceMood, int input){
 
         if(faceMood.equals(FaceMood.SAD)){
 
             return sadFace * input;
-        }
-
-        if(faceMood.equals(FaceMood.HAPPY)){
+        } else if(faceMood.equals(FaceMood.HAPPY)){
 
             return happyFace * input;
-        }
-
-        if(faceMood.equals(FaceMood.MISCHIEVOUS)){
+        } else if(faceMood.equals(FaceMood.MISCHIEVOUS)){
 
             return mFace * input;
-        }
-
-        if(faceMood.equals(FaceMood.ANGRY)){
+        } else if(faceMood.equals(FaceMood.ANGRY)){
 
             return angryFace * input;
         }
@@ -63,10 +55,6 @@ public class Perceptron {
     public FaceMood getFaceMood(){
 
         return faceMood;
-    }
-
-    public void readPixel(int greyLevel){
-
     }
 
     public void backPropagationTraining(FaceMood faceMood){
