@@ -114,7 +114,7 @@ public class Faces {
 
         try {
 
-            br = new BufferedReader(new FileReader(trainingFile));
+            br = new BufferedReader(new FileReader(trainingFacit));
 
             String line;
 
@@ -123,13 +123,13 @@ public class Faces {
             while ((line = br.readLine()) != null) {
 
                 if(!line.isEmpty()) {
-
                     if (line.charAt(0) == 'I'
-                            && Character.isDigit(line.charAt(5))
-                                && Character.isDigit(line.charAt(
-                                        line.length()-1))){
+                            && Character.isDigit(line.charAt(
+                                line.length()-1))){
 
-                        facit[i] = line.charAt(line.length()-1);
+                        facit[i] = Character.getNumericValue(line.charAt(line
+                                .length()-1));
+
                         i++;
                     }
                 }
@@ -179,17 +179,29 @@ public class Faces {
         NeuralNetwork network = new NeuralNetwork(20, 20);
         FaceMood answer;
 
+        int correctAnswers = 0;
+
         for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
 
-            answer = network.readInput(faces.trainingFaces.pollFirst(), faces
-                    .facit[i]);
+            answer = network.readInput((String[][])
+                            faces.trainingFaces.toArray()[i], faces.facit[i]);
 
-            System.out.println("Answer: " + answer + ". Correct: " +
-                    faces.facit[i]);
+            if(answer.equals(FaceMood.values()[faces.facit[i]-1])){
+                System.out.println("Correct!");
+                correctAnswers++;
+            }else {
+                System.out.println("Wrong!");
+            }
+
+            System.out.println("Image: " + i + ".\nAnswer: " + answer + ". " +
+                    "Facit: " +
+                    FaceMood.values()[faces.facit[i]-1] + "\n");
 
             //network.calculateError(answer, faces.facit.pollFirst());
         }
-
+        System.out.println("Correct answers: " + correctAnswers + ", " +
+                ((double)correctAnswers/faces.trainingFaces.size()) * 100 +
+                "%");
 
         //network.calculateNetValues();
     }
