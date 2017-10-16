@@ -2,18 +2,12 @@ public class NeuralNetwork {
 
     private Perceptron[][] perceptrons;
     private double[] netArray;
-    private double ySize, xSize, netSadValue, netHappyValue,
-            netMischeivousValue, netAngryValue;
+    private double ySize, xSize;
 
     public NeuralNetwork(int ySize, int xSize) {
 
         this.ySize = ySize;
         this.xSize = xSize;
-        this.netSadValue = 0;
-        this.netHappyValue = 0;
-        this.netMischeivousValue = 0;
-        this.netAngryValue = 0;
-        this.netSadValue = 0;
 
         this.perceptrons = new Perceptron[ySize][xSize];
 
@@ -35,22 +29,22 @@ public class NeuralNetwork {
             }
         }
 
-        FaceMood answer;
+        int highestOutput = 0;
 
-        for(int i = 0 ; i < 4 ; i++){
-            if(output[i] > output[i+1] && ){
-                if(output[i] > output[i+2]){
-                    if(output[i] > output[i+3]){
-
-                    }
-                }
+        for(int i = 0 ; i < 3 ; i++){
+            if(output[i] < output[i+1]){
+                highestOutput = i+1;
             }
             //if(output[i] == 1){return output[i]}
         }
-        return answer;
+        return FaceMood.values()[highestOutput];
     }
 
     double[] calculateNetValues(int input){
+        int netSadValue = 0;
+        int netHappyValue = 0;
+        int netMischeivousValue = 0;
+        int netAngryValue = 0;
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
