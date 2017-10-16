@@ -14,7 +14,7 @@ public class Faces {
     // training-facit.txt
     // test-file.txt
     private LinkedList<String[][]> trainingFaces;
-    private LinkedList<FaceMood> facit;
+    private int[] facit;
     private String trainingFile, trainingFacit, testFile;
 
 
@@ -212,9 +212,9 @@ public class Faces {
 
         for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
 
-            answer = network.readInput(faces.trainingFaces.pollFirst());
+            answer = network.readInput(faces.trainingFaces.pollFirst(), faces
+                    .facit[i]);
 
-            network.calculateError(answer, faces.facit.pollFirst());
         }
 
 
