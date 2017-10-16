@@ -33,9 +33,9 @@ public class NeuralNetwork {
             for (int x = 0; x < xSize; x++) {
                 for(int i = 0; i < 4; i++) {
 
-                    perceptrons[y][x].setWeight(FaceMood.values()[i], calculateError
-                            (activationArray[i], desiredOutput, Integer.parseInt
-                                    (input[y][x])));
+                    perceptrons[y][x].setWeight(FaceMood.values()[i],
+                            calculateError(activationArray[i], desiredOutput,
+                                    Integer.parseInt(input[y][x])));
                 }
             }
         }
