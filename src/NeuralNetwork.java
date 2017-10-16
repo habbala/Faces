@@ -52,8 +52,12 @@ public class NeuralNetwork {
 
     }
 
-    public void trainNetwork(){
+    public void trainNetwork(String[][] faceImage){
 
-
+        for(int y = 0 ; y < ySize ; y++){
+            for(int x = 0 ; x < xSize ; x++){
+                perceptrons[x][y].readPixel(Integer.parseInt(faceImage[x][y]));
+            }
+        }
     }
 }

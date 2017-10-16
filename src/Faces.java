@@ -202,54 +202,14 @@ public class Faces {
         faces.readTrainingFacit();
         //faces.readTestFile();
 
-        /*
-         * Read faces from file.
-         */
-
-        /*
-         * Read facit.
-         */
-
-        /*
-        br = null;
-
-        try {
-
-            br = new BufferedReader(new FileReader(trainingFacit));
-
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                if(line.charAt(0) == 'I'){
-                    char[][] face = new char[20][20];
-
-                    for(int y = 0 ; y < 20 ; y++){
-                        for(int x = 0 ; x < 20 ; x++){
-                            face[y][x] = line.charAt(x);
-                        }
-                    }
-                    testFaces.add(face);
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        */
 
         /*
          * Create network.
          */
-        /*NeuralNetwork network = new NeuralNetwork(20, 20,4);
+        NeuralNetwork network = new NeuralNetwork(20, 20,4);
 
-        network.calculateNetValues();*/
+
+
+        //network.calculateNetValues();
     }
 }

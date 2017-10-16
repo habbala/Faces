@@ -65,7 +65,11 @@ public class Perceptron {
         return faceMood;
     }
 
-    public void train(FaceMood faceMood){
+    public void readPixel(int greyLevel){
+
+    }
+
+    public void backPropagationTraining(FaceMood faceMood){
 
         if(this.faceMood != faceMood){
 
