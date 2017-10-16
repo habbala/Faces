@@ -206,9 +206,12 @@ public class Faces {
         /*
          * Create network.
          */
-        NeuralNetwork network = new NeuralNetwork(20, 20,4);
+        NeuralNetwork network = new NeuralNetwork(20, 20);
 
+        for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
 
+            network.readInput(faces.trainingFaces.pollFirst());
+        }
 
 
         //network.calculateNetValues();
