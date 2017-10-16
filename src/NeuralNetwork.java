@@ -65,7 +65,11 @@ public class NeuralNetwork {
         return netArray;
     }
 
-    public void calculateError(FaceMood answer){
+    public void calculateError(FaceMood answer, FaceMood facit){
 
+        if(!answer.equals(facit)){
+
+
+        }
     }
 }

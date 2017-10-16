@@ -13,7 +13,8 @@ public class Faces {
     //training-file.txt
     // training-facit.txt
     // test-file.txt
-    private LinkedList<String[][]> trainingFaces, facit;
+    private LinkedList<String[][]> trainingFaces;
+    private LinkedList<FaceMood> facit;
     private String trainingFile, trainingFacit, testFile;
 
 
@@ -206,17 +207,14 @@ public class Faces {
         /*
          * Create network.
          */
-        NeuralNetwork network = new NeuralNetwork(200, 200);
+        NeuralNetwork network = new NeuralNetwork(20, 20);
         FaceMood answer;
 
-        //for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
-        for(int i = 0 ; i < 1 ; i++){
+        for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
 
             answer = network.readInput(faces.trainingFaces.pollFirst());
 
-            System.out.println("Image" + i + "is thought to be " + answer);
-
-            //network.calculateError(answer);
+            network.calculateError(answer, faces.facit.pollFirst());
         }
 
 
