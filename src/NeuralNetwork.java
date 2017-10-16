@@ -25,9 +25,7 @@ public class NeuralNetwork {
 
     public FaceMood readInput(String input[][], int desiredOutput){
 
-        double[] activationArray = new double[4];
-
-        activationArray = calculateNetValues(input);
+        double[] activationArray = calculateNetValues(input);
 
         for(int y = 0 ; y < ySize ; y++) {
             for (int x = 0; x < xSize; x++) {
