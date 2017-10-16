@@ -181,7 +181,8 @@ public class Faces {
 
         for(int i = 0 ; i < faces.trainingFaces.size() ; i++){
 
-            answer = network.readInput(faces.trainingFaces.pollFirst());
+            answer = network.readInput(faces.trainingFaces.pollFirst(), faces
+                    .facit[i]);
 
             System.out.println("Answer: " + answer + ". Correct: " +
                     faces.facit[i]);
