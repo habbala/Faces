@@ -16,7 +16,7 @@ public class Faces {
     //training-file.txt
     // training-facit.txt
     // test-file.txt
-    private LinkedList<String[][]> trainingFaces;
+    private ArrayList<String[][]> trainingFaces;
     private ArrayList facit;
     private String trainingFile, trainingFacit, testFile;
     private NeuralNetwork network;
@@ -34,7 +34,7 @@ public class Faces {
 
     private void readTrainingFile(){
 
-        trainingFaces = new LinkedList<>();
+        trainingFaces = new ArrayList<>();
 
         BufferedReader br = null;
 
@@ -184,7 +184,7 @@ public class Faces {
         //String trainingFacit = args[1];
         //String testFile = args[2];
 
-        Faces faces = new Faces("training.txt", "training-Facit.txt");
+        Faces faces = new Faces("training.txt", "training-facit.txt");
 
         faces.readTrainingFile();
         faces.readTrainingFacit();

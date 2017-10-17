@@ -9,6 +9,7 @@ public class NeuralNetwork {
     private int[] trainingAnswers, testAnswers;
 
     public NeuralNetwork(int ySize, int xSize) {
+
         trainingAnswers = new int[4];
         testAnswers = new int[4];
 
@@ -49,7 +50,7 @@ public class NeuralNetwork {
         return FaceMood.fromInteger(b);
     }
 
-    public void trainPerceptrons(LinkedList<String[][]> faceImages,
+    public void trainPerceptrons(ArrayList<String[][]> faceImages,
                                  ArrayList<FaceMood> facit, int
                                          trainingSampleSize) {
 
@@ -71,7 +72,7 @@ public class NeuralNetwork {
         }
     }
 
-    public int testPerceptrons(LinkedList<String[][]> faceImages,
+    public int testPerceptrons(ArrayList<String[][]> faceImages,
                                ArrayList<FaceMood> facit, int
                                        testingSampleSize) {
 
