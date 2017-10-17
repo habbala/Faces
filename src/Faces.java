@@ -209,6 +209,7 @@ public class Faces {
         faces.testNetwork(testingSampleSize);
 
         for(int i = 0 ; i < 4 ; i++){
+
             System.out.println(FaceMood.fromInteger(i) + " : " +
                     faces.network.getTotalAnswers()[i]);
         }
