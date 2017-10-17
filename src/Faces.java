@@ -12,7 +12,7 @@ public class Faces {
     // training-facit.txt
     // test-file.txt
     private ArrayList<String[][]> trainingFaces;
-    private ArrayList facit;
+    private ArrayList<FaceMood> facit;
     private String trainingFile, trainingFacit, testFile;
     private NeuralNetwork network;
 
@@ -42,13 +42,13 @@ public class Faces {
             int x = 0;
             int y = 0;
 
+            String[][] faceImage = new String[20][20];
+
             while ((line = br.readLine()) != null) {
 
                 if(!line.isEmpty()) {
 
                     if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
-
-                        String[][] faceImage = new String[20][20];
 
                         for (int i = 0 ; i < line.length() ; i++) {
 
@@ -79,7 +79,11 @@ public class Faces {
                         }
 
                         if(y >= 19){
+
                             trainingFaces.add(faceImage);
+
+                            faceImage = new String[20][20];
+
                             y = 0;
 
                         } else {
@@ -159,6 +163,7 @@ public class Faces {
 
 
     }
+
     public void trainNetwork(int trainingSampleSize){
 
         network.trainPerceptrons(trainingFaces, facit, trainingSampleSize);
