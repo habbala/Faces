@@ -83,8 +83,10 @@ public class NeuralNetwork {
 
             answer = getImageMood((String[][]) faceImages.toArray()[i]);
 
+            testAnswers[answer.getValue()]++;
+
             if (answer.equals(facit.get(i))) {
-                System.out.println("Correct!");
+                //System.out.println("Correct!");
                 correctAnswers++;
             } else {
                 //System.out.println("Wrong!");
@@ -100,6 +102,6 @@ public class NeuralNetwork {
 
     public int[] getTotalAnswers(){
 
-        return trainingAnswers;
+        return testAnswers;
     }
 }

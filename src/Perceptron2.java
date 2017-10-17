@@ -9,7 +9,7 @@ public class Perceptron2 {
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
-        this.learningRate = 0.0291;
+        this.learningRate = 0.1;
 
         this.faceMood = faceMood;
 
@@ -33,7 +33,7 @@ public class Perceptron2 {
 
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
-                greyLevels[y][x] = Integer.parseInt(image[y][x]);
+                greyLevels[y][x] = Integer.parseInt(image[y][x])/32;
                 sum += weights[y][x] * greyLevels[y][x];
             }
         }
