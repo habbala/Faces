@@ -57,43 +57,4 @@ public class Perceptron2 {
 
         return learningRate * error * input;
     }
-
-    /*
-    public void backPropagationTraining(FaceMood faceMood){
-
-        if(this.faceMood != faceMood){
-
-            switch(this.faceMood){
-
-                case SAD:
-                    sadFace += trainRate;
-                    happyFace -= trainRate;
-                    mFace -= trainRate;
-                    angryFace -= trainRate;
-                    break;
-
-                case HAPPY:
-                    sadFace -= trainRate;
-                    happyFace += trainRate;
-                    mFace -= trainRate;
-                    angryFace -= trainRate;
-                    break;
-
-                case MISCHIEVOUS:
-                    sadFace -= trainRate;
-                    happyFace -= trainRate;
-                    mFace += trainRate;
-                    angryFace -= trainRate;
-                    break;
-
-                case ANGRY:
-                    sadFace -= trainRate;
-                    happyFace -= trainRate;
-                    mFace -= trainRate;
-                    angryFace += trainRate;
-                    break;
-            }
-        }
-    }
-    */
 }

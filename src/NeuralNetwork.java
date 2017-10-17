@@ -6,7 +6,11 @@ public class NeuralNetwork {
     private Perceptron2[] perceptrons;
     private double[] netArray;
 
+    private int[] trainingAnswers, testAnswers;
+
     public NeuralNetwork(int ySize, int xSize) {
+        trainingAnswers = new int[4];
+        testAnswers = new int[4];
 
         netArray = new double[4];
 
@@ -22,10 +26,11 @@ public class NeuralNetwork {
     private FaceMood getImageMood(String input[][]){
 
         for(int i = 0 ; i < perceptrons.length ; i++) {
-
+            netArray[i] = 0;
             netArray[i] = perceptrons[i].output(input);
 
             if(netArray[i] == 1){
+                trainingAnswers[i]++;
                 return perceptrons[i].getFaceMood();
             }
         }
@@ -39,8 +44,8 @@ public class NeuralNetwork {
                 b = i;
             }
         }
-        //calculateError(activationArray, desiredOutput);
-            //if(output[i] == 1){return output[i]}
+
+        trainingAnswers[b]++;
         return FaceMood.fromInteger(b);
     }
 
@@ -53,6 +58,8 @@ public class NeuralNetwork {
         for(int i = 0 ; i < trainingSampleSize ; i++){
 
             answer = getImageMood(faceImages.get(i));
+
+            //System.out.println(answer);
 
             //if(!answer.equals(facit[i])){
                 for(int n = 0 ; n < perceptrons.length ; n++){
@@ -70,7 +77,7 @@ public class NeuralNetwork {
         int correctAnswers = 0;
 
         //Testing
-        System.out.println("Testing!");
+        //System.out.println("Testing!");
         for(int i = faceImages.size() - testingSampleSize ;
             i < faceImages.size() ; i++){
 
@@ -80,13 +87,18 @@ public class NeuralNetwork {
                 System.out.println("Correct!");
                 correctAnswers++;
             }else {
-                System.out.println("Wrong!");
+                //System.out.println("Wrong!");
             }
 
+            /*
             System.out.println("Image: " + i + ".\nAnswer: "
                     + answer + ". " + "Facit: " + facit.get(i) + "\n");
         }
 
         return correctAnswers;
+    }
+
+    public int[] getTotalAnswers(){
+        return trainingAnswers;
     }
 }
