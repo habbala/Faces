@@ -194,7 +194,7 @@ public class Faces {
 
         faces.trainNetwork(trainingSampleSize);
 
-        for(int i = 0; i < 3000; i++){
+        for(int i = 0; i < 300; i++){
 
             Collections.shuffle(faces.trainingFaces);
             faces.trainNetwork(trainingSampleSize);
