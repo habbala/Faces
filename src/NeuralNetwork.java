@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class NeuralNetwork {
 
     private Perceptron2[] perceptrons;
@@ -11,18 +13,20 @@ public class NeuralNetwork {
 
         for(int i = 0 ; i < 4 ; i++){
             perceptrons[i] =
-                    new Perceptron2(FaceMood.values()[i], ySize, xSize);
+                    new Perceptron2(FaceMood.fromInteger(i), ySize, xSize);
         }
 
     }
 
-    public FaceMood readInput(String input[][], int desiredOutput){
+    private FaceMood readInput(String input[][]){
 
-        double[] activationArray = calculateNetValues(input);
+        double[] activationArray = new double[perceptrons.length];
 
-        for(int i = 0; i < perceptrons.length; i++) {
+        for(int i = 0 ; i < perceptrons.length ; i++) {
 
+            netArray[i] = perceptrons[i].output(input);
             perceptrons[i].setWeights();
+
         }
 
         int b = 0;
@@ -36,18 +40,43 @@ public class NeuralNetwork {
         }
         //calculateError(activationArray, desiredOutput);
             //if(output[i] == 1){return output[i]}
-        return FaceMood.values()[b];
+        return FaceMood.fromInteger(b);
     }
 
-    double[] calculateNetValues(String input[][]){
+    public void trainNodes(LinkedList<String[][]> faceImages, FaceMood[] facit){
 
-        for(int i = 0 ; i < perceptrons.length ; i++) {
+        FaceMood[] answers = new FaceMood[perceptrons.length];
 
-            netArray[i] = ActivationFunction.Sigmoid(perceptrons[i].output
-                    (input));
-
+        for(int i = 0 ; i < faceImages.size() ; i++){
+            answers[i] = readInput((String[][])faceImages.toArray()[i]);
         }
 
-        return netArray;
+
+    }
+
+    public int testNodes(LinkedList<String[][]> faceImages, FaceMood[] facit,
+                         int testingSampleSize){
+        FaceMood answer;
+        int correctAnswers = 0;
+
+        //Testing
+        System.out.println("Testing!");
+        for(int i = faceImages.size() - testingSampleSize ;
+            i < faceImages.size() ; i++){
+
+            answer = readInput((String[][]) faceImages.toArray()[i]);
+
+            if(answer.equals(facit[i])){
+                System.out.println("Correct!");
+                correctAnswers++;
+            }else {
+                System.out.println("Wrong!");
+            }
+
+            System.out.println("Image: " + i + 1 + ".\nAnswer: "
+                    + answer + ". " + "Facit: " + facit[i] + "\n");
+        }
+
+        return correctAnswers;
     }
 }

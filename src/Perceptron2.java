@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Perceptron2 {
 
-    private FaceMood faceMood;
+    private final FaceMood faceMood;
     private double activationThreshold, trainRate, error, learningRate;
     private double[][] weights;
 
@@ -37,11 +37,11 @@ public class Perceptron2 {
             }
         }
 
-        return sum;
+        return ActivationFunction.Sigmoid(sum);
     }
 
     public void setWeights(){
-        //calculateError()
+        //calculateError();
     }
 
     double calculateError(double activationValue, int desiredOutput, int input){

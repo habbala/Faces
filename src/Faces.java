@@ -14,10 +14,9 @@ public class Faces {
     // training-facit.txt
     // test-file.txt
     private LinkedList<String[][]> trainingFaces;
-    private int[] facit;
+    private FaceMood[] facit;
     private String trainingFile, trainingFacit, testFile;
     private NeuralNetwork network;
-
 
     private Faces(String trainingFile, String trainingFacit){
 
@@ -111,7 +110,7 @@ public class Faces {
 
     private void readTrainingFacit(){
 
-        facit = new int[trainingFaces.size()];
+        facit = new FaceMood[trainingFaces.size()];
 
         BufferedReader br = null;
 
@@ -130,8 +129,9 @@ public class Faces {
                             && Character.isDigit(line.charAt(
                                 line.length()-1))){
 
-                        facit[i] = Character.getNumericValue(line.charAt(line
-                                .length()-1));
+                        facit[i] = FaceMood.fromInteger(Character
+                                .getNumericValue(line.charAt(line.length()-1))
+                                - 1);
 
                         i++;
                     }
@@ -165,35 +165,13 @@ public class Faces {
 
         //Training
         System.out.println("Training!");
-        for(int i = 0 ; i < trainingSampleSize ; i++){
-            network.readInput((String[][])trainingFaces.toArray()[i], facit[i]);
-        }
+        network.trainNodes(trainingFaces, facit);
     }
 
     public void testNetwork(int testingSampleSize){
 
-        FaceMood answer;
-        int correctAnswers = 0;
-
-        //Testing
-        System.out.println("Testing!");
-        for(int i = trainingFaces.size() - testingSampleSize ;
-            i < trainingFaces.size() ; i++){
-
-            answer = network.readInput((String[][]) trainingFaces.toArray()[i],
-                    facit[i]);
-
-            if(answer.equals(FaceMood.values()[facit[i]-1])){
-                System.out.println("Correct!");
-                correctAnswers++;
-            }else {
-                System.out.println("Wrong!");
-            }
-
-            System.out.println("Image: " + i + 1 + ".\nAnswer: "
-                    + answer + ". " + "Facit: " + FaceMood.values()
-                    [facit[i]-1] + "\n");
-        }
+        int correctAnswers = network.testNodes(trainingFaces, facit,
+                testingSampleSize);
 
         System.out.println("Correct answers: " + correctAnswers + ", " +
                 ((double)correctAnswers/(testingSampleSize) * 100 + "%"));
