@@ -24,6 +24,7 @@ public class Perceptron2 {
     }
 
     public FaceMood getFaceMood(){
+
         return faceMood;
     }
 
