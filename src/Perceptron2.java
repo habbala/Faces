@@ -9,7 +9,7 @@ public class Perceptron2 {
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
-        this.learningRate = 0.1;
+        this.learningRate = 0.0291;
 
         this.faceMood = faceMood;
 

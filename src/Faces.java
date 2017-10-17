@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Faces {
     //Read 300 files.
@@ -15,7 +17,7 @@ public class Faces {
     // training-facit.txt
     // test-file.txt
     private LinkedList<String[][]> trainingFaces;
-    private FaceMood[] facit;
+    private ArrayList facit;
     private String trainingFile, trainingFacit, testFile;
     private NeuralNetwork network;
 
@@ -111,7 +113,7 @@ public class Faces {
 
     private void readTrainingFacit(){
 
-        facit = new FaceMood[trainingFaces.size()];
+        facit = new ArrayList<FaceMood>(trainingFaces.size());
 
         BufferedReader br = null;
 
@@ -130,9 +132,9 @@ public class Faces {
                             && Character.isDigit(line.charAt(
                                 line.length()-1))){
 
-                        facit[i] = FaceMood.fromInteger(Character
+                        facit.add(i, FaceMood.fromInteger(Character
                                 .getNumericValue(line.charAt(line.length()-1))
-                                - 1);
+                                - 1));
 
                         i++;
                     }
@@ -188,6 +190,8 @@ public class Faces {
 
         faces.readTrainingFile();
         faces.readTrainingFacit();
+
+        long seed;
         //faces.readTestFile();
 
         int trainingSampleSize = 2 * faces.trainingFaces.size() / 3;
@@ -196,7 +200,9 @@ public class Faces {
 
         for(int i = 0; i < 300; i++){
 
-            Collections.shuffle(faces.trainingFaces);
+            seed = System.nanoTime();
+            Collections.shuffle(faces.trainingFaces, new Random(seed));
+            Collections.shuffle(faces.facit, new Random(seed));
             faces.trainNetwork(trainingSampleSize);
         }
 

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class NeuralNetwork {
@@ -43,8 +44,9 @@ public class NeuralNetwork {
         return FaceMood.fromInteger(b);
     }
 
-    public void trainPerceptrons(LinkedList<String[][]> faceImages, FaceMood[]
-            facit, int trainingSampleSize){
+    public void trainPerceptrons(LinkedList<String[][]> faceImages,
+                                 ArrayList<FaceMood> facit, int
+                                         trainingSampleSize){
 
         FaceMood answer;
 
@@ -54,14 +56,16 @@ public class NeuralNetwork {
 
             //if(!answer.equals(facit[i])){
                 for(int n = 0 ; n < perceptrons.length ; n++){
-                    perceptrons[n].setWeights(answer.getValue(), facit[i]);
+                    perceptrons[n].setWeights(answer.getValue(), facit.get(i));
                 }
             //}
         }
     }
 
-    public int testPerceptrons(LinkedList<String[][]> faceImages, FaceMood[] facit,
-                               int testingSampleSize){
+    public int testPerceptrons(LinkedList<String[][]> faceImages,
+                               ArrayList<FaceMood> facit, int
+                                       testingSampleSize){
+
         FaceMood answer;
         int correctAnswers = 0;
 
@@ -72,7 +76,7 @@ public class NeuralNetwork {
 
             answer = getImageMood((String[][]) faceImages.toArray()[i]);
 
-            if(answer.equals(facit[i])){
+            if(answer.equals(facit.get(i))){
                 System.out.println("Correct!");
                 correctAnswers++;
             }else {
@@ -80,7 +84,7 @@ public class NeuralNetwork {
             }
 
             System.out.println("Image: " + i + ".\nAnswer: "
-                    + answer + ". " + "Facit: " + facit[i] + "\n");
+                    + answer + ". " + "Facit: " + facit.get(i) + "\n");
         }
 
         return correctAnswers;
