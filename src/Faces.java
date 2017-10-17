@@ -16,6 +16,7 @@ public class Faces {
     private LinkedList<String[][]> trainingFaces;
     private int[] facit;
     private String trainingFile, trainingFacit, testFile;
+    private NeuralNetwork network;
 
 
     private Faces(String trainingFile, String trainingFacit){
@@ -23,6 +24,8 @@ public class Faces {
         this.trainingFile = trainingFile;
         this.trainingFacit = trainingFacit;
         //this.testFile = testFile;
+
+        this.network = new NeuralNetwork(20, 20);
 
         //readTestFile(testFile);
     }
@@ -158,6 +161,43 @@ public class Faces {
 
 
     }
+    public void trainNetwork(int trainingSampleSize){
+
+        //Training
+        System.out.println("Training!");
+        for(int i = 0 ; i < trainingSampleSize ; i++){
+            network.readInput((String[][])trainingFaces.toArray()[i], facit[i]);
+        }
+    }
+
+    public void testNetwork(int testingSampleSize){
+
+        FaceMood answer;
+        int correctAnswers = 0;
+
+        //Testing
+        System.out.println("Testing!");
+        for(int i = trainingFaces.size() - testingSampleSize ;
+            i < trainingFaces.size() ; i++){
+
+            answer = network.readInput((String[][]) trainingFaces.toArray()[i],
+                    facit[i]);
+
+            if(answer.equals(FaceMood.values()[facit[i]-1])){
+                System.out.println("Correct!");
+                correctAnswers++;
+            }else {
+                System.out.println("Wrong!");
+            }
+
+            System.out.println("Image: " + i + 1 + ".\nAnswer: "
+                    + answer + ". " + "Facit: " + FaceMood.values()
+                    [facit[i]-1] + "\n");
+        }
+
+        System.out.println("Correct answers: " + correctAnswers + ", " +
+                ((double)correctAnswers/(testingSampleSize) * 100 + "%"));
+    }
 
     public static void main(String[] args) {
 
@@ -171,46 +211,11 @@ public class Faces {
         faces.readTrainingFacit();
         //faces.readTestFile();
 
+        int trainingSampleSize = 2 * faces.trainingFaces.size() / 3;
 
-        /*
-         * Create network.
-         */
+        faces.trainNetwork(trainingSampleSize);
 
-        NeuralNetwork network = new NeuralNetwork(20, 20);
-        FaceMood answer;
+        //faces.testNetwork(faces.trainingFaces.size() - trainingSampleSize);
 
-        int correctAnswers = 0;
-        int i;
-
-        for(i = 0 ; i < (2*faces.trainingFaces.size())/3; i++){
-
-            network.readInput((String[][])faces.trainingFaces.toArray()[i],
-                    faces.facit[i]);
-        }
-
-        while(i < faces.trainingFaces.size()){
-
-            answer = network.readInput((String[][])
-                    faces.trainingFaces.toArray()[i], faces.facit[i]);
-
-            if(answer.equals(FaceMood.values()[faces.facit[i]-1])){
-                System.out.println("Correct!");
-                correctAnswers++;
-            }else {
-                System.out.println("Wrong!");
-            }
-
-            System.out.println("Image: " + i + ".\nAnswer: " + answer + ". " +
-                    "Facit: " +
-                    FaceMood.values()[faces.facit[i]-1] + "\n");
-            i++;
-        }
-
-        System.out.println("Correct answers: " + correctAnswers + ", " +
-                ((double)correctAnswers/faces.trainingFaces.size()) * 100 +
-                "%");
-
-
-        //network.calculateNetValues();
     }
 }

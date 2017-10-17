@@ -1,24 +1,17 @@
 public class NeuralNetwork {
 
-    private Perceptron[][] perceptrons;
+    private Perceptron2[] perceptrons;
     private double[] netArray;
-    private double ySize, xSize, error, deltaweight, learningRate;
 
     public NeuralNetwork(int ySize, int xSize) {
 
-        this.ySize = ySize;
-        this.xSize = xSize;
-
         netArray = new double[4];
 
-        learningRate = 0.05;
+        perceptrons = new Perceptron2[4];
 
-        this.perceptrons = new Perceptron[ySize][xSize];
-
-        for(int y = 0 ; y < ySize ; y++) {
-            for (int x = 0; x < xSize; x++) {
-                perceptrons[y][x] = new Perceptron();
-            }
+        for(int i = 0 ; i < 4 ; i++){
+            perceptrons[i] =
+                    new Perceptron2(FaceMood.values()[i], ySize, xSize);
         }
 
     }
@@ -26,17 +19,10 @@ public class NeuralNetwork {
     public FaceMood readInput(String input[][], int desiredOutput){
 
         double[] activationArray = calculateNetValues(input);
-        FaceMood faceMood;
 
-        for(int y = 0 ; y < ySize ; y++) {
-            for (int x = 0; x < xSize; x++) {
-                for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < perceptrons.length; i++) {
 
-                    perceptrons[y][x].setWeight(FaceMood.values()[i],
-                            calculateError(activationArray[i], desiredOutput,
-                                    Integer.parseInt(input[y][x])));
-                }
-            }
+            perceptrons[i].setWeights();
         }
 
         int b = 0;
@@ -55,37 +41,13 @@ public class NeuralNetwork {
 
     double[] calculateNetValues(String input[][]){
 
-        int netSadValue = 0;
-        int netHappyValue = 0;
-        int netMischeivousValue = 0;
-        int netAngryValue = 0;
+        for(int i = 0 ; i < perceptrons.length ; i++) {
 
-        for(int y = 0 ; y < ySize ; y++) {
-            for (int x = 0; x < xSize; x++) {
+            netArray[i] = ActivationFunction.Sigmoid(perceptrons[i].output
+                    (input));
 
-                int greyLevel = Integer.parseInt(input[y][x]);
-
-                netSadValue += perceptrons[y][x].output(FaceMood.SAD, greyLevel);
-                netHappyValue += perceptrons[y][x].output(FaceMood.HAPPY, greyLevel);
-                netMischeivousValue += perceptrons[y][x].output(FaceMood
-                        .MISCHIEVOUS, greyLevel);
-                netAngryValue += perceptrons[y][x].output(FaceMood.ANGRY, greyLevel);
-            }
         }
 
-        netArray[0] = ActivationFunction.Sigmoid(netSadValue);
-        netArray[1] = ActivationFunction.Sigmoid(netHappyValue);
-        netArray[2] = ActivationFunction.Sigmoid(netMischeivousValue);
-        netArray[3] = ActivationFunction.Sigmoid(netAngryValue);
-
         return netArray;
-    }
-
-    public double calculateError(double activationValue, int
-            desiredOutput, int input){
-
-        error = activationValue - desiredOutput;
-
-        return learningRate * error * input;
     }
 }
