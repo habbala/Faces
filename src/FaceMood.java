@@ -18,4 +18,18 @@ public enum FaceMood {
         }
         return null;
     }
+
+    public int getValue(){
+        switch(this) {
+            case SAD:
+                return 0;
+            case HAPPY:
+                return 1;
+            case MISCHIEVOUS:
+                return 2;
+            case ANGRY:
+                return 3;
+        }
+        return -1;
+    }
 }

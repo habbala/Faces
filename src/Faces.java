@@ -166,12 +166,12 @@ public class Faces {
 
         //Training
         System.out.println("Training!");
-        network.trainNodes(trainingFaces, facit);
+        network.trainPerceptrons(trainingFaces, facit, trainingSampleSize);
     }
 
     public void testNetwork(int testingSampleSize){
 
-        int correctAnswers = network.testNodes(trainingFaces, facit,
+        int correctAnswers = network.testPerceptrons(trainingFaces, facit,
                 testingSampleSize);
 
         System.out.println("Correct answers: " + correctAnswers + ", " +
