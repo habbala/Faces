@@ -5,7 +5,7 @@ public class Perceptron2 {
     private final FaceMood faceMood;
     private double error, learningRate;
     private double[][] weights;
-    private int[][] greyLevels;
+    private double[][] greyLevels;
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
@@ -14,7 +14,7 @@ public class Perceptron2 {
         this.faceMood = faceMood;
 
         weights = new double[ySize][xSize];
-        greyLevels = new int[ySize][xSize];
+        greyLevels = new double[ySize][xSize];
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
@@ -34,6 +34,7 @@ public class Perceptron2 {
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
                 greyLevels[y][x] = Integer.parseInt(image[y][x])/32;
+                System.out.println();
                 sum += weights[y][x] * greyLevels[y][x];
             }
         }
@@ -41,17 +42,19 @@ public class Perceptron2 {
         return ActivationFunction.Sigmoid(sum);
     }
 
-    public void setWeights(double proposedAnswer, FaceMood correctAnswer){
+    public void setWeights(double proposedAnswer, int desiredOutput){
 
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
-                weights[y][x] += calculateError(proposedAnswer,correctAnswer
-                                .getValue(), greyLevels[y][x]);
+                double newWeight = calculateError(proposedAnswer,desiredOutput,
+                        greyLevels[y][x]);
+                weights[y][x] += newWeight;
             }
         }
     }
 
-    double calculateError(double activationValue, int desiredOutput, int input){
+    double calculateError(double activationValue, int desiredOutput, double
+            input){
 
         error = activationValue - desiredOutput;
 

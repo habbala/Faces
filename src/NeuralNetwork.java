@@ -61,11 +61,13 @@ public class NeuralNetwork {
 
             //System.out.println(answer);
 
-            //if(!answer.equals(facit[i])){
             for (int n = 0; n < perceptrons.length; n++) {
-                perceptrons[n].setWeights(answer.getValue(), facit.get(i));
+                if(perceptrons[n].getFaceMood().equals(facit.get(i))){
+                    perceptrons[n].setWeights(netArray[answer.getValue()], 1);
+                } else {
+                    perceptrons[n].setWeights(netArray[answer.getValue()], 0);
+                }
             }
-            //}
         }
     }
 
