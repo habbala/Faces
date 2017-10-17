@@ -51,14 +51,17 @@ public class NeuralNetwork {
     }
 
     public void trainPerceptrons(ArrayList<String[][]> faceImages,
-                                 ArrayList<FaceMood> facit, int
+                                 ArrayList<FaceMood> imageFacit, int
                                          trainingSampleSize) {
+
+        ArrayList<String[][]> images = faceImages;
+        ArrayList<FaceMood> facit = imageFacit;
 
         FaceMood answer;
 
         for (int i = 0; i < trainingSampleSize; i++) {
 
-            answer = getImageMood(faceImages.get(i));
+            answer = getImageMood(images.get(i));
 
             //System.out.println(answer);
 
@@ -84,7 +87,7 @@ public class NeuralNetwork {
         for (int i = faceImages.size() - testingSampleSize;
              i < faceImages.size(); i++) {
 
-            answer = getImageMood((String[][]) faceImages.toArray()[i]);
+            answer = getImageMood((String[][]) faceImages.get(i));
 
             testAnswers[answer.getValue()]++;
 

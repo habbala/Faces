@@ -7,11 +7,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Faces {
-    //Read 300 files.
-    //Store as 2/3 as learning images and 1/3 as test images.
-    //Don't info that's not an image.
-    //Read 20x20 pixel file
-    //Pixel has 32 grey levels.
 
     //training-file.txt
     // training-facit.txt
@@ -44,8 +39,6 @@ public class Faces {
 
             String line;
 
-            String[][] faceImage = new String[20][20];
-
             int x = 0;
             int y = 0;
 
@@ -54,6 +47,8 @@ public class Faces {
                 if(!line.isEmpty()) {
 
                     if (line.charAt(0) != '#' && line.charAt(0) != 'I') {
+
+                        String[][] faceImage = new String[20][20];
 
                         for (int i = 0 ; i < line.length() ; i++) {
 
