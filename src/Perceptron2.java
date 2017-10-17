@@ -3,14 +3,12 @@ import java.util.Random;
 public class Perceptron2 {
 
     private final FaceMood faceMood;
-    private double activationThreshold, trainRate, error, learningRate;
+    private double error, learningRate;
     private double[][] weights;
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
-        this.activationThreshold = 0.5;
-
-        this.trainRate = 0.1;
+        this.learningRate = 0.1;
 
         this.faceMood = faceMood;
 
