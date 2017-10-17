@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class Faces {
@@ -192,6 +193,16 @@ public class Faces {
         int trainingSampleSize = 2 * faces.trainingFaces.size() / 3;
 
         faces.trainNetwork(trainingSampleSize);
+
+        for(int i = 0; i < 3000; i++){
+
+            Collections.shuffle(faces.trainingFaces);
+            faces.trainNetwork(trainingSampleSize);
+        }
+
+        int testingSampleSize = faces.trainingFaces.size()/3;
+
+        faces.testNetwork(testingSampleSize);
 
         //faces.testNetwork(faces.trainingFaces.size() - trainingSampleSize);
 

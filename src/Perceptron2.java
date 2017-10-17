@@ -10,7 +10,7 @@ public class Perceptron2 {
 
         this.activationThreshold = 0.5;
 
-        this.trainRate = 0.5;
+        this.trainRate = 0.1;
 
         this.faceMood = faceMood;
 
