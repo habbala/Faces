@@ -164,8 +164,6 @@ public class Faces {
     }
     public void trainNetwork(int trainingSampleSize){
 
-        //Training
-        System.out.println("Training!");
         network.trainPerceptrons(trainingFaces, facit, trainingSampleSize);
     }
 
@@ -200,11 +198,14 @@ public class Faces {
             faces.trainNetwork(trainingSampleSize);
         }
 
-        int testingSampleSize = faces.trainingFaces.size()/3;
+        int testingSampleSize = faces.trainingFaces.size() - trainingSampleSize;
 
         faces.testNetwork(testingSampleSize);
 
-        //faces.testNetwork(faces.trainingFaces.size() - trainingSampleSize);
+        for(int i = 0 ; i < 4 ; i++){
+            System.out.println(FaceMood.fromInteger(i) + " : " +
+                    faces.network.getTotalAnswers()[i]);
+        }
 
     }
 }
