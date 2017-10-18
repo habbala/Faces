@@ -67,7 +67,8 @@ public class NeuralNetwork {
 
             for (int n = 0; n < perceptrons.length; n++) {
                 if(perceptrons[n].getFaceMood().equals(facit.get(i))){
-                    perceptrons[n].setWeights(netArray[answer.getValue()], 1);
+                    perceptrons[n].setWeights(netArray[answer.getValue()],
+                            1);
                 } else {
                     perceptrons[n].setWeights(0);
                 }
