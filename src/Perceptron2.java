@@ -5,16 +5,16 @@ public class Perceptron2 {
     private final FaceMood faceMood;
     private double error, learningRate;
     private double[][] weights;
-    private double[][] greyLevels;
+    private String[][] greyLevels;
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
-        this.learningRate = 0.1;
+        this.learningRate = 0.3;
 
         this.faceMood = faceMood;
 
         weights = new double[ySize][xSize];
-        greyLevels = new double[ySize][xSize];
+        greyLevels = new String[ySize][xSize];
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
@@ -34,8 +34,8 @@ public class Perceptron2 {
 
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
-                greyLevels[y][x] = (Integer.parseInt(image[y][x])/32);
-                sum += weights[y][x] * greyLevels[y][x];
+                greyLevels[y][x] = image[y][x];
+                sum += weights[y][x] * Integer.parseInt(greyLevels[y][x]);
             }
         }
 
@@ -44,11 +44,29 @@ public class Perceptron2 {
 
     public void setWeights(double proposedAnswer, int desiredOutput){
 
+        double newWeight = 0;
+
+        for(int y = 0 ; y < weights[0].length ; y++){
+            for(int x = 0 ; x < weights[0].length ; x++) {
+                try {
+                    newWeight = calculateError(proposedAnswer, desiredOutput,
+                            Integer.parseInt(greyLevels[y][x]));
+                } catch (NumberFormatException e) {
+
+                    System.out.println("Greylevels = " + greyLevels[y][x]);
+                    e.printStackTrace();
+                }
+                weights[y][x] += newWeight;
+            }
+        }
+    }
+
+    public void setWeights(double newWeight){
+
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
-                double newWeight = calculateError(proposedAnswer,desiredOutput,
-                        greyLevels[y][x]);
-                weights[y][x] += newWeight;
+
+                weights[y][x] = newWeight;
             }
         }
     }
