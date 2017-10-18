@@ -77,7 +77,7 @@ public class Perceptron2 {
             input){
 
         error = desiredOutput - activationValue;
-        //System.out.println("error;  " + error);
+
         double i = learningRate * error * input;
 
         return i;

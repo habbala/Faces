@@ -29,7 +29,6 @@ public class NeuralNetwork {
 
         for (int i = 0; i < perceptrons.length; i++) {
 
-            netArray[i] = 0;
             //System.out.println("input: " + input);
             netArray[i] = perceptrons[i].output(input);
 
@@ -85,11 +84,18 @@ public class NeuralNetwork {
 
             for (int n = 0; n < perceptrons.length; n++) {
 
-                if(perceptrons[n].getFaceMood().equals(facit.get(i))){
+                if(n == facit.get(i).getValue()){
+                    perceptrons[n].setWeights(netArray[answer.getValue()],
+                            1);
+                }
+
+
+                /*if(perceptrons[n].getFaceMood().equals(facit.get(i))){
 
                     perceptrons[n].setWeights(netArray[answer.getValue()],
                             1);
-                } else {
+                }*/
+                else {
                     perceptrons[n].setWeights(netArray[answer.getValue()],0);
                 }
             }
