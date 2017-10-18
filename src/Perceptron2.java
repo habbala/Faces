@@ -20,7 +20,7 @@ public class Perceptron2 {
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
-                weights[y][x] = 0.1;
+                weights[y][x] = new Random().nextDouble();
             }
         }
     }
@@ -37,17 +37,22 @@ public class Perceptron2 {
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
 
+
                 greyLevels[y][x] = image[y][x];
+
                 sum += weights[y][x] * (Double.parseDouble(greyLevels[y][x])
                         /32);
             }
         }
+        //System.out.println("sum"+sum);
 
         return ActivationFunction.Sigmoid(sum);
     }
 
-    public void setWeights(double proposedAnswer, int desiredOutput){
-
+    public void setWeights(double activationValue, int desiredOutput){
+        //System.out.println();
+        //System.out.println("actiovationvalue: " + activationValue);
+        //System.out.println("desiredoutput:  " + desiredOutput);
         double newWeight = 0;
 
         for(int y = 0 ; y < weights[0].length ; y++){
@@ -55,8 +60,8 @@ public class Perceptron2 {
 
                 try {
 
-                    newWeight = calculateError(proposedAnswer, desiredOutput,
-                            Double.parseDouble(greyLevels[y][x]));
+                    newWeight = calculateError(activationValue, desiredOutput,
+                            Double.parseDouble(greyLevels[y][x])/32);
 
                 } catch (NumberFormatException e) {
 
@@ -72,6 +77,7 @@ public class Perceptron2 {
             input){
 
         error = desiredOutput - activationValue;
+        //System.out.println("error;  " + error);
         double i = learningRate * error * input;
 
         return i;

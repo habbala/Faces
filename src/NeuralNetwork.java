@@ -17,6 +17,7 @@ public class NeuralNetwork {
 
         perceptrons = new Perceptron2[4];
 
+
         for (int i = 0; i < 4; i++) {
             perceptrons[i] =
                     new Perceptron2(FaceMood.fromInteger(i), ySize, xSize);
@@ -27,14 +28,13 @@ public class NeuralNetwork {
     private FaceMood getImageMood(String input[][]) {
 
         for (int i = 0; i < perceptrons.length; i++) {
+
             netArray[i] = 0;
+            //System.out.println("input: " + input);
             netArray[i] = perceptrons[i].output(input);
 
-            if (netArray[i] == 1) {
-                //trainingAnswers[i]++;
-                return perceptrons[i].getFaceMood();
-            }
         }
+
 
         int b = 0;
 
@@ -71,12 +71,9 @@ public class NeuralNetwork {
         return FaceMood.fromInteger(b);
     }
 
-    public void trainPerceptrons(ArrayList<String[][]> faceImages,
-                                 ArrayList<FaceMood> imageFacit, int
+    public void trainPerceptrons(ArrayList<String[][]> images,
+                                 ArrayList<FaceMood> facit, int
                                          trainingSampleSize) {
-
-        ArrayList<String[][]> images = faceImages;
-        ArrayList<FaceMood> facit = imageFacit;
 
         FaceMood answer;
 
@@ -87,7 +84,9 @@ public class NeuralNetwork {
             //System.out.println(answer);
 
             for (int n = 0; n < perceptrons.length; n++) {
+
                 if(perceptrons[n].getFaceMood().equals(facit.get(i))){
+
                     perceptrons[n].setWeights(netArray[answer.getValue()],
                             1);
                 } else {

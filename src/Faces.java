@@ -194,14 +194,12 @@ public class Faces {
 
         int trainingSampleSize = 2 * faces.trainingFaces.size() / 3;
 
-        faces.trainNetwork(trainingSampleSize);
-
         for(int i = 0; i < 300; i++){
 
+            faces.trainNetwork(trainingSampleSize);
             seed = System.nanoTime();
             Collections.shuffle(faces.trainingFaces, new Random(seed));
             Collections.shuffle(faces.facit, new Random(seed));
-            faces.trainNetwork(trainingSampleSize);
         }
 
         int testingSampleSize = faces.trainingFaces.size() - trainingSampleSize;
