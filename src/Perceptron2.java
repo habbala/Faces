@@ -9,7 +9,7 @@ public class Perceptron2 {
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
-        this.learningRate = 0.29;
+        this.learningRate = 0.01;
 
         this.faceMood = faceMood;
 
@@ -20,7 +20,7 @@ public class Perceptron2 {
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
-                weights[y][x] = new Random().nextDouble();
+                weights[y][x] = 0.1;
             }
         }
     }
@@ -37,7 +37,8 @@ public class Perceptron2 {
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
                 greyLevels[y][x] = image[y][x];
-                sum += weights[y][x] * (Double.parseDouble(greyLevels[y][x])/32);
+                sum += weights[y][x] * Double.parseDouble(greyLevels[y][x]) /
+                        32;
             }
         }
 
@@ -64,16 +65,6 @@ public class Perceptron2 {
                 }
 
                 weights[y][x] += newWeight;
-            }
-        }
-    }
-
-    public void setWeights(double newWeight){
-
-        for(int y = 0 ; y < weights[0].length ; y++){
-            for(int x = 0 ; x < weights[0].length ; x++){
-
-                weights[y][x] = newWeight;
             }
         }
     }

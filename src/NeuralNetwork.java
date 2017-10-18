@@ -31,7 +31,7 @@ public class NeuralNetwork {
             netArray[i] = perceptrons[i].output(input);
 
             if (netArray[i] == 1) {
-                trainingAnswers[i]++;
+                //trainingAnswers[i]++;
                 return perceptrons[i].getFaceMood();
             }
         }
@@ -46,7 +46,28 @@ public class NeuralNetwork {
             }
         }
 
-        trainingAnswers[b]++;
+        //trainingAnswers[b]++;
+        return FaceMood.fromInteger(b);
+    }
+
+    private FaceMood getImageMood2(String input[][]) {
+
+        for (int i = 0; i < perceptrons.length; i++) {
+            netArray[i] = 0;
+            netArray[i] = perceptrons[i].output(input);
+        }
+
+        int b = 0;
+
+        for (int i = 1; i < 4; i++) {
+
+            if (netArray[b] < netArray[i]) {
+
+                b = i;
+            }
+        }
+
+        //trainingAnswers[b]++;
         return FaceMood.fromInteger(b);
     }
 
@@ -70,7 +91,7 @@ public class NeuralNetwork {
                     perceptrons[n].setWeights(netArray[answer.getValue()],
                             1);
                 } else {
-                    perceptrons[n].setWeights(0);
+                    perceptrons[n].setWeights(netArray[answer.getValue()],0);
                 }
             }
         }
@@ -88,7 +109,7 @@ public class NeuralNetwork {
         for (int i = faceImages.size() - testingSampleSize;
              i < faceImages.size(); i++) {
 
-            answer = getImageMood((String[][]) faceImages.get(i));
+            answer = getImageMood2(faceImages.get(i));
 
             testAnswers[answer.getValue()]++;
 
