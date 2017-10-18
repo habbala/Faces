@@ -20,7 +20,7 @@ public class Perceptron2 {
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
-                weights[y][x] = 0;
+                weights[y][x] = new Random().nextDouble();
             }
         }
     }
@@ -37,7 +37,7 @@ public class Perceptron2 {
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
                 greyLevels[y][x] = image[y][x];
-                sum += weights[y][x] * (Integer.parseInt(greyLevels[y][x])/32);
+                sum += weights[y][x] * (Double.parseDouble(greyLevels[y][x])/32);
             }
         }
 
