@@ -6,15 +6,20 @@ public class Perceptron2 {
     private double error, learningRate;
     private double[][] weights;
     private String[][] greyLevels;
+    private double i;
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
         this.learningRate = 0.3;
 
+        i = 0;
+
         this.faceMood = faceMood;
 
         weights = new double[ySize][xSize];
         greyLevels = new String[ySize][xSize];
+
+        greyLevels[0][0] = "0";
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
@@ -35,9 +40,15 @@ public class Perceptron2 {
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
                 greyLevels[y][x] = image[y][x];
-                sum += weights[y][x] * Integer.parseInt(greyLevels[y][x]);
+                /*System.out.println("Greylevels = "+ Integer.parseInt
+                        (greyLevels[y][x])
+                        +", "+"parseintGreylevels " +
+                        "/ 32 = " + i);*/
+                sum += weights[y][x] * (Integer.parseInt(greyLevels[y][x])/32);
             }
         }
+
+
 
         return ActivationFunction.Sigmoid(sum);
     }
@@ -53,12 +64,12 @@ public class Perceptron2 {
                             Integer.parseInt(greyLevels[y][x]));
                 } catch (NumberFormatException e) {
 
-                    System.out.println("Greylevels = " + greyLevels[y][x]);
                     e.printStackTrace();
                 }
                 weights[y][x] += newWeight;
             }
         }
+        System.out.println("Antal Exceptions = " + i);
     }
 
     public void setWeights(double newWeight){
