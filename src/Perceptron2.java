@@ -36,13 +36,12 @@ public class Perceptron2 {
 
         for(int y = 0 ; y < weights[0].length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++){
+
                 greyLevels[y][x] = image[y][x];
-                sum += weights[y][x] * Double.parseDouble(greyLevels[y][x]) /
-                        32;
+                sum += weights[y][x] * (Double.parseDouble(greyLevels[y][x])
+                        /32);
             }
         }
-
-
 
         return ActivationFunction.Sigmoid(sum);
     }
@@ -57,7 +56,7 @@ public class Perceptron2 {
                 try {
 
                     newWeight = calculateError(proposedAnswer, desiredOutput,
-                            Integer.parseInt(greyLevels[y][x]));
+                            Double.parseDouble(greyLevels[y][x]));
 
                 } catch (NumberFormatException e) {
 
@@ -72,7 +71,7 @@ public class Perceptron2 {
     double calculateError(double activationValue, int desiredOutput, double
             input){
 
-        error = activationValue - desiredOutput;
+        error = desiredOutput - activationValue;
         double i = learningRate * error * input;
 
         return i;
