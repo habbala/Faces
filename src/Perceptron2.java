@@ -3,9 +3,8 @@ import java.util.Random;
 public class Perceptron2 {
 
     private final FaceMood faceMood;
-    private double error, learningRate;
-    private double[][] weights;
-    private String[][] greyLevels;
+    private double learningRate;
+    private double[][] weights, greyLevels;
 
     public Perceptron2(FaceMood faceMood, int ySize, int xSize){
 
@@ -14,9 +13,7 @@ public class Perceptron2 {
         this.faceMood = faceMood;
 
         weights = new double[ySize][xSize];
-        greyLevels = new String[ySize][xSize];
-
-        greyLevels[0][0] = "0";
+        greyLevels = new double[ySize][xSize];
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
@@ -38,10 +35,9 @@ public class Perceptron2 {
             for(int x = 0 ; x < weights[0].length ; x++){
 
 
-                greyLevels[y][x] = image[y][x];
+                greyLevels[y][x] = (Double.parseDouble(image[y][x]) /32);
 
-                sum += weights[y][x] * (Double.parseDouble(greyLevels[y][x])
-                        /32);
+                sum += weights[y][x] * greyLevels[y][x];
             }
         }
         //System.out.println("sum"+sum);
@@ -60,8 +56,8 @@ public class Perceptron2 {
 
                 try {
 
-                    newWeight = calculateError(activationValue, desiredOutput,
-                            Double.parseDouble(greyLevels[y][x])/32);
+                    newWeight = calculateError(activationValue,
+                            desiredOutput, greyLevels[y][x]);
 
                 } catch (NumberFormatException e) {
 
@@ -73,13 +69,12 @@ public class Perceptron2 {
         }
     }
 
-    double calculateError(double activationValue, int desiredOutput, double
+    private double calculateError(double activationValue, int desiredOutput,
+                                double
             input){
 
-        error = desiredOutput - activationValue;
+        double error = desiredOutput - activationValue;
 
-        double i = learningRate * error * input;
-
-        return i;
+        return learningRate * error * input;
     }
 }
