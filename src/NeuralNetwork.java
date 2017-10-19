@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class NeuralNetwork {
 
-    private Perceptron2[] perceptrons;
+    private Perceptron[] perceptrons;
     private double[] netArray;
 
     private int[]  testAnswers;
@@ -13,12 +13,12 @@ public class NeuralNetwork {
 
         netArray = new double[4];
 
-        perceptrons = new Perceptron2[4];
+        perceptrons = new Perceptron[4];
 
 
         for (int i = 0; i < 4; i++) {
 
-            perceptrons[i] = new Perceptron2(FaceMood.fromInteger(i), ySize,
+            perceptrons[i] = new Perceptron(FaceMood.fromInteger(i), ySize,
                     xSize);
         }
 
@@ -43,7 +43,6 @@ public class NeuralNetwork {
             }
         }
 
-        //trainingAnswers[b]++;
         return FaceMood.fromInteger(b);
     }
 
@@ -64,7 +63,6 @@ public class NeuralNetwork {
             }
         }
 
-        //trainingAnswers[b]++;
         return FaceMood.fromInteger(b);
     }
 
@@ -72,13 +70,9 @@ public class NeuralNetwork {
                                  ArrayList<FaceMood> facit, int
                                          trainingSampleSize) {
 
-        FaceMood answer;
-
         for (int i = 0; i < trainingSampleSize; i++) {
 
-            answer = getImageMood(images.get(i));
-
-            //System.out.println(answer);
+            getImageMood(images.get(i));
 
             for (int n = 0; n < perceptrons.length; n++) {
 
@@ -113,15 +107,10 @@ public class NeuralNetwork {
             testAnswers[answer.getValue()]++;
 
             if (answer.equals(facit.get(i))) {
-                //System.out.println("Correct!");
+
                 correctAnswers++;
             }
         }
         return correctAnswers;
-    }
-
-    public int[] getTotalAnswers(){
-
-        return testAnswers;
     }
 }

@@ -7,9 +7,6 @@ import java.util.Random;
 
 public class Faces {
 
-    //training-file.txt
-    // training-facit.txt
-    // test-file.txt
     private ArrayList<String[][]> faces;
     private ArrayList<FaceMood> facit;
     private String trainingFile, trainingFacit, testFile;
@@ -22,8 +19,6 @@ public class Faces {
         this.testFile = testFile;
 
         this.network = new NeuralNetwork(20, 20);
-
-        //readTestFile(testFile);
     }
 
     private void readFaces(String trainingFile){
@@ -177,11 +172,10 @@ public class Faces {
         faces.readFacit(faces.trainingFacit);
 
         long seed;
-        //faces.readTestFile();
 
         int sampleSize = faces.faces.size();
 
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 1000; i++){
 
             faces.trainNetwork(sampleSize);
             seed = System.nanoTime();
