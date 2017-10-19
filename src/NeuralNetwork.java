@@ -1,16 +1,14 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class NeuralNetwork {
 
     private Perceptron2[] perceptrons;
     private double[] netArray;
 
-    private int[] trainingAnswers, testAnswers;
+    private int[]  testAnswers;
 
     public NeuralNetwork(int ySize, int xSize) {
 
-        trainingAnswers = new int[4];
         testAnswers = new int[4];
 
         netArray = new double[4];
@@ -109,8 +107,7 @@ public class NeuralNetwork {
         FaceMood answer;
         int correctAnswers = 0;
 
-        //Testing
-        //System.out.println("Testing!");
+
         for (int i = faceImages.size() - testingSampleSize;
              i < faceImages.size(); i++) {
 
@@ -121,14 +118,7 @@ public class NeuralNetwork {
             if (answer.equals(facit.get(i))) {
                 //System.out.println("Correct!");
                 correctAnswers++;
-            } else {
-                //System.out.println("Wrong!");
             }
-
-            /*
-            System.out.println("Image: " + i + ".\nAnswer: "
-                    + answer + ". " + "Facit: " + facit.get(i) + "\n");
-        }*/
         }
         return correctAnswers;
     }
