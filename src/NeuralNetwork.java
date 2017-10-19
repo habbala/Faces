@@ -83,7 +83,8 @@ public class NeuralNetwork {
             for (int n = 0; n < perceptrons.length; n++) {
 
                 if(n == facit.get(i).getValue()){
-                    perceptrons[n].setWeights(netArray[answer.getValue()],
+
+                    perceptrons[n].setWeights(netArray[n],
                             1);
                 }
 
@@ -94,7 +95,8 @@ public class NeuralNetwork {
                             1);
                 }*/
                 else {
-                    perceptrons[n].setWeights(netArray[answer.getValue()],0);
+
+                    perceptrons[n].setWeights(netArray[n],0);
                 }
             }
         }
