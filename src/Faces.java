@@ -175,7 +175,7 @@ public class Faces {
 
         int sampleSize = faces.faces.size();
 
-        for(int i = 0; i < 1000; i++){
+        for(int i = 0; i < 300; i++){
 
             faces.trainNetwork(sampleSize);
             seed = System.nanoTime();
