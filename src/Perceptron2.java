@@ -41,8 +41,12 @@ public class Perceptron2 {
             }
         }
         //System.out.println("sum"+sum);
+        //System.out.println("Sum is: " + sum);
+        //System.out.println("ActivationValue is: " + ActivationFunction
+        //        .Sigmoid(sum));
+        sum = ActivationFunction.Sigmoid(sum);
 
-        return ActivationFunction.Sigmoid(sum);
+        return sum;
     }
 
     public void setWeights(double activationValue, int desiredOutput){
@@ -63,6 +67,15 @@ public class Perceptron2 {
 
                     e.printStackTrace();
                 }
+
+                /*if(weights[y][x] < 0){
+
+                    weights[y][x] = 0;
+                }
+                else if(weights[y][x] > 1){
+
+                    weights[y][x] = 1;
+                }*/
 
                 weights[y][x] += newWeight;
             }

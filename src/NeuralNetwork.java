@@ -19,8 +19,9 @@ public class NeuralNetwork {
 
 
         for (int i = 0; i < 4; i++) {
-            perceptrons[i] =
-                    new Perceptron2(FaceMood.fromInteger(i), ySize, xSize);
+
+            perceptrons[i] = new Perceptron2(FaceMood.fromInteger(i), ySize,
+                    xSize);
         }
 
     }
@@ -29,7 +30,6 @@ public class NeuralNetwork {
 
         for (int i = 0; i < perceptrons.length; i++) {
 
-            //System.out.println("input: " + input);
             netArray[i] = perceptrons[i].output(input);
 
         }
@@ -52,7 +52,7 @@ public class NeuralNetwork {
     private FaceMood getImageMood2(String input[][]) {
 
         for (int i = 0; i < perceptrons.length; i++) {
-            netArray[i] = 0;
+
             netArray[i] = perceptrons[i].output(input);
         }
 

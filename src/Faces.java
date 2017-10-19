@@ -112,7 +112,7 @@ public class Faces {
 
     private void readTrainingFacit(){
 
-        facit = new ArrayList<FaceMood>(trainingFaces.size());
+        facit = new ArrayList<>(trainingFaces.size());
 
         BufferedReader br = null;
 
