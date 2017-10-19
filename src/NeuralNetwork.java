@@ -88,12 +88,6 @@ public class NeuralNetwork {
                             1);
                 }
 
-
-                /*if(perceptrons[n].getFaceMood().equals(facit.get(i))){
-
-                    perceptrons[n].setWeights(netArray[answer.getValue()],
-                            1);
-                }*/
                 else {
 
                     perceptrons[n].setWeights(netArray[n],0);

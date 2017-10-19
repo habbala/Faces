@@ -83,8 +83,7 @@ public class Perceptron2 {
     }
 
     private double calculateError(double activationValue, int desiredOutput,
-                                double
-            input){
+                                double input){
 
         double error = desiredOutput - activationValue;
 
