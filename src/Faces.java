@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Faces {
@@ -11,25 +10,25 @@ public class Faces {
     //training-file.txt
     // training-facit.txt
     // test-file.txt
-    private ArrayList<String[][]> trainingFaces;
+    private ArrayList<String[][]> faces;
     private ArrayList<FaceMood> facit;
     private String trainingFile, trainingFacit, testFile;
     private NeuralNetwork network;
 
-    private Faces(String trainingFile, String trainingFacit){
+    private Faces(String trainingFile, String trainingFacit, String testFile){
 
         this.trainingFile = trainingFile;
         this.trainingFacit = trainingFacit;
-        //this.testFile = testFile;
+        this.testFile = testFile;
 
         this.network = new NeuralNetwork(20, 20);
 
         //readTestFile(testFile);
     }
 
-    private void readTrainingFile(){
+    private void readFaces(String trainingFile){
 
-        trainingFaces = new ArrayList<>();
+        faces = new ArrayList<>();
 
         BufferedReader br = null;
 
@@ -80,7 +79,7 @@ public class Faces {
 
                         if(y >= 19){
 
-                            trainingFaces.add(faceImage);
+                            faces.add(faceImage);
 
                             faceImage = new String[20][20];
 
@@ -110,15 +109,15 @@ public class Faces {
         }
     }
 
-    private void readTrainingFacit(){
+    private void readFacit(String facitFile){
 
-        facit = new ArrayList<>(trainingFaces.size());
+        facit = new ArrayList<>(faces.size());
 
         BufferedReader br = null;
 
         try {
 
-            br = new BufferedReader(new FileReader(trainingFacit));
+            br = new BufferedReader(new FileReader(facitFile));
 
             String line;
 
@@ -140,8 +139,8 @@ public class Faces {
                 }
             }
 
-            if(i != trainingFaces.size()){
-                System.out.println("Mismatch! Images: " + trainingFaces.size()
+            if(i != faces.size()){
+                System.out.println("Mismatch! Images: " + faces.size()
                 + ". Facits: " + i);
             }
 
@@ -159,58 +158,39 @@ public class Faces {
             }
         }
     }
-    public void readTestFile(){
-
-
-    }
 
     public void trainNetwork(int trainingSampleSize){
 
-        network.trainPerceptrons(trainingFaces, facit, trainingSampleSize);
+        network.trainPerceptrons(faces, facit, trainingSampleSize);
     }
 
     public void testNetwork(int testingSampleSize){
 
-        int correctAnswers = network.testPerceptrons(trainingFaces, facit,
-                testingSampleSize);
-
-        System.out.println("Correct answers: " + correctAnswers + ", " +
-                ((double)correctAnswers/(testingSampleSize) * 100 + "%"));
+        network.testPerceptrons(faces, facit, testingSampleSize);
     }
 
     public static void main(String[] args) {
 
-        //String trainingFile = args[0];
-        //String trainingFacit = args[1];
-        //String testFile = args[2];
+        Faces faces = new Faces(args[0], args[1], args[2]);
 
-        Faces faces = new Faces("training.txt", "training-facit.txt");
-
-        faces.readTrainingFile();
-        faces.readTrainingFacit();
+        faces.readFaces(faces.trainingFile);
+        faces.readFacit(faces.trainingFacit);
 
         long seed;
         //faces.readTestFile();
 
-        int trainingSampleSize = 2 * faces.trainingFaces.size() / 3;
+        int sampleSize = faces.faces.size();
 
-        for(int i = 0; i < 40; i++){
+        for(int i = 0; i < 100; i++){
 
-            faces.trainNetwork(trainingSampleSize);
+            faces.trainNetwork(sampleSize);
             seed = System.nanoTime();
-            Collections.shuffle(faces.trainingFaces, new Random(seed));
+            Collections.shuffle(faces.faces, new Random(seed));
             Collections.shuffle(faces.facit, new Random(seed));
         }
 
-        int testingSampleSize = faces.trainingFaces.size() - trainingSampleSize;
-
-        faces.testNetwork(testingSampleSize);
-
-        for(int i = 0 ; i < 4 ; i++){
-
-            System.out.println(FaceMood.fromInteger(i) + " : " +
-                    faces.network.getTotalAnswers()[i]);
-        }
-
+        faces.readFaces(faces.testFile);
+        sampleSize = faces.faces.size();
+        faces.testNetwork(sampleSize);
     }
 }

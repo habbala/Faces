@@ -109,6 +109,7 @@ public class NeuralNetwork {
 
             answer = getImageMood2(faceImages.get(i));
 
+            System.out.println("Image"+i+" "+(answer.getValue()+1));
             testAnswers[answer.getValue()]++;
 
             if (answer.equals(facit.get(i))) {
