@@ -78,7 +78,7 @@ public class NeuralNetwork {
         int correctAnswers = 0;
 
 
-        for (int i = faceImages.size() - testingSampleSize;
+        for (int i = 0;
              i < faceImages.size(); i++) {
 
             answer = getImageMood(faceImages.get(i));
