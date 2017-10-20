@@ -191,8 +191,15 @@ public class Faces {
     }
 
     /**
+     * Main program that reads training file, training facit and a test file.
+     * After the network has trained using the training file and facit, the
+     * images are shuffled and trained with 300 additional times.
      *
-     * @param args
+     * After the network has been trained with the training file and facit,
+     * it is tested with the test file. The test does not produce a log file,
+     * instead the answers are printed to the terminal.
+     *
+     * @param args Training file, training facit, test file
      */
     public static void main(String[] args) {
 
