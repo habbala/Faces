@@ -17,7 +17,6 @@ public class Faces {
         this.trainingFile = trainingFile;
         this.trainingFacit = trainingFacit;
         this.testFile = testFile;
-
         this.network = new NeuralNetwork(20, 20);
     }
 
@@ -135,6 +134,7 @@ public class Faces {
             }
 
             if(i != faces.size()){
+
                 System.out.println("Mismatch! Images: " + faces.size()
                 + ". Facits: " + i);
             }
@@ -142,13 +142,18 @@ public class Faces {
         } catch (IOException e) {
 
             e.printStackTrace();
+
         } finally {
 
             try {
+
                 if (br != null) {
+
                     br.close();
                 }
+
             } catch (IOException ex) {
+
                 ex.printStackTrace();
             }
         }
@@ -162,7 +167,6 @@ public class Faces {
         faces.readFacit(faces.trainingFacit);
 
         long seed;
-
 
         for(int i = 0; i < 300; i++){
 
