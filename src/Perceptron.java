@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Perceptron {
 
-    private double learningRate;
+    private static double learningRate;
     private double[][] weights, greyLevels;
 
     /**
@@ -20,7 +20,7 @@ public class Perceptron {
      */
     public Perceptron(int xSize, int ySize){
 
-        this.learningRate = 0.01;
+        learningRate = 0.01;
 
         weights = new double[xSize][ySize];
         greyLevels = new double[xSize][ySize];
