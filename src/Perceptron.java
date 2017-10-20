@@ -67,11 +67,11 @@ public class Perceptron {
      * @param desiredOutput 1 if the answer given by the perceptron was
      *                      correct. 0 if it was incorrect.
      */
-    public void setWeights(double activationValue, int desiredOutput){
+    protected void setWeights(double activationValue, int desiredOutput){
 
         double newWeight = 0;
 
-        for(int y = 0 ; y < weights[0].length ; y++){
+        for(int y = 0 ; y < weights.length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++) {
 
                 try {

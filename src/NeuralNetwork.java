@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * This class creates a neural network with 4 perceptrons and takes the input
  * as a 2 dimensional string array which contain the grey levels and uses that
- * to calculate the weights and such.
+ * to give the input layer its values.
  */
 public class NeuralNetwork {
 
