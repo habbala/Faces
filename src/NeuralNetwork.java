@@ -83,8 +83,7 @@ public class NeuralNetwork {
 
         FaceMood answer;
 
-        for (int i = 0;
-             i < faceImages.size(); i++) {
+        for (int i = 0; i < faceImages.size(); i++) {
 
             answer = getImageMood(faceImages.get(i));
 

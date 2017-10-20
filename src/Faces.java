@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Program to train and test an artificial neural network to recognize moods
+ * in faces in monochrome images.
+ */
 public class Faces {
 
     private ArrayList<String[][]> faces;
@@ -12,6 +16,21 @@ public class Faces {
     private String trainingFile, trainingFacit, testFile;
     private NeuralNetwork network;
 
+    /**
+     * Constructor for the class that contains both the network and
+     * necessary files.
+     *
+     * @param trainingFile Path to the file that contains images which the
+     *                     network will use to train.
+     *
+     * @param trainingFacit Path to the file that contains correct answers
+     *                      for the training images.
+     *
+     * @param testFile Path to the file that contains the image set that the
+     *                 network will test itself against. Facit to these
+     *                 images is not provided to the program, but will be
+     *                 evaluated in a different program.
+     */
     private Faces(String trainingFile, String trainingFacit, String testFile){
 
         this.trainingFile = trainingFile;
@@ -20,6 +39,12 @@ public class Faces {
         this.network = new NeuralNetwork(20, 20);
     }
 
+    /**
+     * Tries to open and read a file containing face images. The images are
+     * stored in an array list. Each image is stored as a String[][], with x
+     * and y coordinates.
+     * @param trainingFile Path to training file.
+     */
     private void readFaces(String trainingFile){
 
         faces = new ArrayList<>();
@@ -103,6 +128,12 @@ public class Faces {
         }
     }
 
+    /**
+     * Tries to open and read a facit file. The correct answers are
+     * stored in an array list. Each answer is stored as a FaceMood.
+     *
+     * @param facitFile Path to file containing the correct answers.
+     */
     private void readFacit(String facitFile){
 
         facit = new ArrayList<>(faces.size());
@@ -159,6 +190,10 @@ public class Faces {
         }
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         Faces faces = new Faces(args[0], args[1], args[2]);
