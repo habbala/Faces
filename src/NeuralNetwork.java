@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+/**
+ * This class creates a neural network with 4 perceptrons and takes the input
+ * as a 2 dimensional string array which contain the grey levels and uses that
+ * to calculate the weights and such.
+ */
 public class NeuralNetwork {
 
     private Perceptron[] perceptrons;
@@ -7,6 +12,11 @@ public class NeuralNetwork {
 
     private int[]  testAnswers;
 
+    /**
+     *
+     * @param ySize
+     * @param xSize
+     */
     public NeuralNetwork(int ySize, int xSize) {
 
         testAnswers = new int[4];
@@ -18,7 +28,7 @@ public class NeuralNetwork {
 
         for (int i = 0; i < 4; i++) {
 
-            perceptrons[i] = new Perceptron(FaceMood.fromInteger(i), ySize,
+            perceptrons[i] = new Perceptron(ySize,
                     xSize);
         }
 
@@ -47,10 +57,9 @@ public class NeuralNetwork {
     }
 
     public void trainPerceptrons(ArrayList<String[][]> images,
-                                 ArrayList<FaceMood> facit, int
-                                         trainingSampleSize) {
+                                 ArrayList<FaceMood> facit) {
 
-        for (int i = 0; i < trainingSampleSize; i++) {
+        for (int i = 0; i < images.size(); i++) {
 
             getImageMood(images.get(i));
 
@@ -71,8 +80,7 @@ public class NeuralNetwork {
     }
 
     public int testPerceptrons(ArrayList<String[][]> faceImages,
-                               ArrayList<FaceMood> facit, int
-                                       testingSampleSize) {
+                               ArrayList<FaceMood> facit) {
 
         FaceMood answer;
         int correctAnswers = 0;

@@ -154,14 +154,14 @@ public class Faces {
         }
     }
 
-    public void trainNetwork(int trainingSampleSize){
+    public void trainNetwork(){
 
-        network.trainPerceptrons(faces, facit, trainingSampleSize);
+        network.trainPerceptrons(faces, facit);
     }
 
-    public void testNetwork(int testingSampleSize){
+    public void testNetwork(){
 
-        network.testPerceptrons(faces, facit, testingSampleSize);
+        network.testPerceptrons(faces, facit);
     }
 
     public static void main(String[] args) {
@@ -173,18 +173,16 @@ public class Faces {
 
         long seed;
 
-        int sampleSize = faces.faces.size();
 
         for(int i = 0; i < 100; i++){
 
-            faces.trainNetwork(sampleSize);
+            faces.trainNetwork();
             seed = System.nanoTime();
             Collections.shuffle(faces.faces, new Random(seed));
             Collections.shuffle(faces.facit, new Random(seed));
         }
 
         faces.readFaces(faces.testFile);
-        sampleSize = faces.faces.size();
-        faces.testNetwork(sampleSize);
+        faces.testNetwork();
     }
 }

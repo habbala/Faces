@@ -2,15 +2,13 @@ import java.util.Random;
 
 public class Perceptron {
 
-    private final FaceMood faceMood;
     private double learningRate;
     private double[][] weights, greyLevels;
 
-    public Perceptron(FaceMood faceMood, int ySize, int xSize){
+    public Perceptron(int ySize, int xSize){
 
         this.learningRate = 0.01;
 
-        this.faceMood = faceMood;
 
         weights = new double[ySize][xSize];
         greyLevels = new double[ySize][xSize];
