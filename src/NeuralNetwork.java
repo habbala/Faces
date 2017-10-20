@@ -11,11 +11,11 @@ public class NeuralNetwork {
     private double[] netValues;
 
     /**
-     * The constructor creates 2 kinds of arrays. The "netArray" which will
-     * store the activatiionValues for from each perceptron, and then
-     * "perceptrons"
+     * The constructor creates 2 kinds of arrays. The "netValues" which will
+     * store the activatiion-values from each perceptron, and then
+     * "perceptrons" which stores each perceptron.
+     * @param xSize the
      * @param ySize
-     * @param xSize
      */
     public NeuralNetwork(int xSize, int ySize) {
 

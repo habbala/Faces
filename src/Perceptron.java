@@ -18,15 +18,15 @@ public class Perceptron {
      * @param xSize Image width.
      * @param ySize Image height.
      */
-    public Perceptron(int ySize, int xSize){
+    public Perceptron(int xSize, int ySize){
 
         this.learningRate = 0.01;
 
-        weights = new double[ySize][xSize];
-        greyLevels = new double[ySize][xSize];
+        weights = new double[xSize][ySize];
+        greyLevels = new double[xSize][ySize];
 
-        for(int x = 0 ; x < ySize ; x++){
-            for(int y = 0 ; y < xSize ; y++){
+        for(int x = 0 ; x < xSize ; x++){
+            for(int y = 0 ; y < ySize ; y++){
 
                 weights[x][y] = new Random().nextDouble();
             }
