@@ -10,16 +10,12 @@ public class NeuralNetwork {
     private Perceptron[] perceptrons;
     private double[] netArray;
 
-    private int[]  testAnswers;
-
     /**
-     *
+     * The constructor creates 3 kinds of arrays.
      * @param ySize
      * @param xSize
      */
     public NeuralNetwork(int xSize, int ySize) {
-
-        testAnswers = new int[4];
 
         netArray = new double[4];
 
@@ -88,7 +84,6 @@ public class NeuralNetwork {
             answer = getImageMood(faceImages.get(i));
 
             System.out.println("Image"+i+" "+(answer.getValue()+1));
-            testAnswers[answer.getValue()]++;
         }
     }
 }
