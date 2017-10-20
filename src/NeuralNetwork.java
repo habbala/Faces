@@ -8,16 +8,18 @@ import java.util.ArrayList;
 public class NeuralNetwork {
 
     private Perceptron[] perceptrons;
-    private double[] netArray;
+    private double[] netValues;
 
     /**
-     * The constructor creates 3 kinds of arrays.
+     * The constructor creates 2 kinds of arrays. The "netArray" which will
+     * store the activatiionValues for from each perceptron, and then
+     * "perceptrons"
      * @param ySize
      * @param xSize
      */
     public NeuralNetwork(int xSize, int ySize) {
 
-        netArray = new double[4];
+        netValues = new double[4];
 
         perceptrons = new Perceptron[4];
 
@@ -34,7 +36,7 @@ public class NeuralNetwork {
 
         for (int i = 0; i < perceptrons.length; i++) {
 
-            netArray[i] = perceptrons[i].output(input);
+            netValues[i] = perceptrons[i].output(input);
 
         }
 
@@ -43,7 +45,7 @@ public class NeuralNetwork {
 
         for (int i = 1; i < 4; i++) {
 
-            if (netArray[b] < netArray[i]) {
+            if (netValues[b] < netValues[i]) {
 
                 b = i;
             }
@@ -63,13 +65,13 @@ public class NeuralNetwork {
 
                 if(n == facit.get(i).getValue()){
 
-                    perceptrons[n].setWeights(netArray[n],
+                    perceptrons[n].setWeights(netValues[n],
                             1);
                 }
 
                 else {
 
-                    perceptrons[n].setWeights(netArray[n],0);
+                    perceptrons[n].setWeights(netValues[n],0);
                 }
             }
         }
