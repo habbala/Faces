@@ -11,6 +11,7 @@ public enum FaceMood {
      *
      * @param x the desired value.
      * @return the FaceMood corresponding the desired value.
+     * Null if the integer does not match a FaceMood.
      */
     public static FaceMood fromInteger(int x) {
         switch(x) {
@@ -30,7 +31,8 @@ public enum FaceMood {
      * This method makes it possible to get the value on the corresponging
      * FaceMood
      *
-     * @return the value of the corresponding the current FaceMood.
+     * @return the value of the corresponding the current FaceMood. -1 is the
+     * value does not match any known FaceMood.
      */
     public int getValue(){
         switch(this) {
