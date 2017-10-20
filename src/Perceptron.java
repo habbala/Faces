@@ -71,7 +71,7 @@ public class Perceptron {
 
         double newWeight = 0;
 
-        for(int y = 0 ; y < weights[0].length ; y++){
+        for(int y = 0 ; y < weights.length ; y++){
             for(int x = 0 ; x < weights[0].length ; x++) {
 
                 try {
@@ -98,7 +98,7 @@ public class Perceptron {
      *                        same input previously.
      * @param desiredOutput 0 if the answer was wrong, 1 if it was correct.
      * @param input The grey level value that produced the answer.
-     * @return Value by which a weight may be adjusted.
+     * @return double value by which a weight may be adjusted.
      */
     private double calculateError(double activationValue, int desiredOutput,
                                 double input){
