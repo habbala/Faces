@@ -36,6 +36,7 @@ public class Perceptron {
     /**
      * Summates each input and associated weight, whereafter the sum is run
      * through an activation function (Sigmoid).
+     *
      * @param image The image to process.
      * @return sum Summated value of inputs after run through an activation
      * function.

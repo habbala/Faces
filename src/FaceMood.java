@@ -1,10 +1,17 @@
+/**
+ * An enum with each specific FaceMood stored as SAD = 0, HAPPY = 1,
+ * MISCHIEVOUS = 2, ANGRY = 3.
+ */
 public enum FaceMood {
     SAD, HAPPY, MISCHIEVOUS, ANGRY;
 
-    public static FaceMood getRandom() {
-        return values()[(int) (Math.random() * values().length)];
-    }
-
+    /**
+     * This method makes it possible to get the FaceMood with the
+     * corresponding value.
+     *
+     * @param x the desired value.
+     * @return the FaceMood corresponding the desired value.
+     */
     public static FaceMood fromInteger(int x) {
         switch(x) {
             case 0:
@@ -19,6 +26,12 @@ public enum FaceMood {
         return null;
     }
 
+    /**
+     * This method makes it possible to get the value on the corresponging
+     * FaceMood
+     *
+     * @return the value of the corresponding the current FaceMood.
+     */
     public int getValue(){
         switch(this) {
             case SAD:
