@@ -79,12 +79,9 @@ public class NeuralNetwork {
         }
     }
 
-    public int testPerceptrons(ArrayList<String[][]> faceImages,
-                               ArrayList<FaceMood> facit) {
+    public void testPerceptrons(ArrayList<String[][]> faceImages) {
 
         FaceMood answer;
-        int correctAnswers = 0;
-
 
         for (int i = 0;
              i < faceImages.size(); i++) {
@@ -93,12 +90,6 @@ public class NeuralNetwork {
 
             System.out.println("Image"+i+" "+(answer.getValue()+1));
             testAnswers[answer.getValue()]++;
-
-            if (answer.equals(facit.get(i))) {
-
-                correctAnswers++;
-            }
         }
-        return correctAnswers;
     }
 }

@@ -177,6 +177,6 @@ public class Faces {
         }
 
         faces.readFaces(faces.testFile);
-        faces.network.testPerceptrons(faces.faces, faces.facit);
+        faces.network.testPerceptrons(faces.faces);
     }
 }

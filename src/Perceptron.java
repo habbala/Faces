@@ -9,12 +9,12 @@ public class Perceptron {
 
         this.learningRate = 0.01;
 
-
         weights = new double[ySize][xSize];
         greyLevels = new double[ySize][xSize];
 
         for(int y = 0 ; y < ySize ; y++){
             for(int x = 0 ; x < xSize ; x++){
+
                 weights[y][x] = new Random().nextDouble();
             }
         }
