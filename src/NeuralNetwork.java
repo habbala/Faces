@@ -17,7 +17,7 @@ public class NeuralNetwork {
      * @param ySize
      * @param xSize
      */
-    public NeuralNetwork(int ySize, int xSize) {
+    public NeuralNetwork(int xSize, int ySize) {
 
         testAnswers = new int[4];
 
@@ -28,8 +28,8 @@ public class NeuralNetwork {
 
         for (int i = 0; i < 4; i++) {
 
-            perceptrons[i] = new Perceptron(ySize,
-                    xSize);
+            perceptrons[i] = new Perceptron(xSize,
+                    ySize);
         }
 
     }

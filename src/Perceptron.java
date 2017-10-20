@@ -25,10 +25,10 @@ public class Perceptron {
         weights = new double[ySize][xSize];
         greyLevels = new double[ySize][xSize];
 
-        for(int y = 0 ; y < ySize ; y++){
-            for(int x = 0 ; x < xSize ; x++){
+        for(int x = 0 ; x < ySize ; x++){
+            for(int y = 0 ; y < xSize ; y++){
 
-                weights[y][x] = new Random().nextDouble();
+                weights[x][y] = new Random().nextDouble();
             }
         }
     }
@@ -44,13 +44,13 @@ public class Perceptron {
 
         double sum = 0;
 
-        for(int y = 0 ; y < weights[0].length ; y++){
-            for(int x = 0 ; x < weights[0].length ; x++){
+        for(int x = 0 ; x < weights[0].length ; x++){
+            for(int y = 0 ; y < weights[0].length ; y++){
 
 
-                greyLevels[y][x] = (Double.parseDouble(image[y][x]) /32);
+                greyLevels[x][y] = (Double.parseDouble(image[x][y]) /32);
 
-                sum += weights[y][x] * greyLevels[y][x];
+                sum += weights[x][y] * greyLevels[x][y];
             }
         }
 
@@ -71,20 +71,20 @@ public class Perceptron {
 
         double newWeight = 0;
 
-        for(int y = 0 ; y < weights.length ; y++){
-            for(int x = 0 ; x < weights[0].length ; x++) {
+        for(int x = 0 ; x < weights.length ; x++){
+            for(int y = 0 ; y < weights[0].length ; y++) {
 
                 try {
 
                     newWeight = calculateError(activationValue,
-                            desiredOutput, greyLevels[y][x]);
+                            desiredOutput, greyLevels[x][y]);
 
                 } catch (NumberFormatException e) {
 
                     e.printStackTrace();
                 }
 
-                weights[y][x] += newWeight;
+                weights[x][y] += newWeight;
             }
         }
     }
