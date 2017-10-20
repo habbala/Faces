@@ -151,15 +151,17 @@ public class Faces {
             while ((line = br.readLine()) != null) {
 
                 if(!line.isEmpty()) {
-                    if (line.charAt(0) == 'I'
-                            && Character.isDigit(line.charAt(
-                                line.length()-1))){
+                    if(line.contains("Image")) {
+                        if (line.charAt(0) == 'I'
+                                && Character.isDigit(line.charAt(
+                                line.length() - 1))) {
 
-                        facit.add(i, FaceMood.fromInteger(Character
-                                .getNumericValue(line.charAt(line.length()-1))
-                                - 1));
+                            facit.add(i, FaceMood.fromInteger(Character
+                                    .getNumericValue(line.charAt(line.length() - 1))
+                                    - 1));
 
-                        i++;
+                            i++;
+                        }
                     }
                 }
             }
